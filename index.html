@@ -1406,6 +1406,25 @@ async function openBuy(id) {
       throw new Error("Invalid decrypted URL.");
     }
 
+    window.location.href = url;
+
+  } catch (error) {
+    console.error("Decryption error:", error);
+
+    toast(
+      "Incorrect password or invalid encrypted data.",
+      "ACCESS DENIED"
+    );
+    return;
+  }
+
+  try {
+    const url = await decryptURL(entry, password);
+
+    if (!/^https?:\/\//i.test(url)) {
+      throw new Error("Invalid decrypted URL.");
+    }
+
     const opened = window.open(
       url,
       "_blank",
