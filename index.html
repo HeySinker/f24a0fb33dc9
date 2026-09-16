@@ -1195,21 +1195,22 @@ const ENCRYPTED_LINKS = {
     data: "f2Xg4ohS0a2XROx7t4RrKuSbl57RQexRM0czaJ/IH/2V5H1AZFBFG/lbz8B9cdgSn2UiW7WFHmLG65X4O3vMuAqaQUWbIDBuZUgfUESyU0C5ItlhbiESga4oDOscG3+U8DITupbUPoy9m8rJ8mWgvyKCoCECOogGhyxh2iQYdA0kaY3I9Xs24JxO7bCYzmyUVgApjg=="
   }
 };
+
 const CDN = "https://community.cloudflare.steamstatic.com/economy/image/";
 
 const RARE = {
-  mil:{label:"Mil-Spec",color:"#4b69ff"},
-  res:{label:"Restricted",color:"#8847ff"},
-  cls:{label:"Classified",color:"#d32ce6"},
-  cov:{label:"Covert",color:"#eb4b4b"}
+  mil: { label: "Mil-Spec", color: "#4b69ff" },
+  res: { label: "Restricted", color: "#8847ff" },
+  cls: { label: "Classified", color: "#d32ce6" },
+  cov: { label: "Covert", color: "#eb4b4b" }
 };
 
 const WEAR = {
-  fn:"Factory New",
-  mw:"Minimal Wear",
-  ft:"Field-Tested",
-  ww:"Well-Worn",
-  bs:"Battle-Scarred"
+  fn: "Factory New",
+  mw: "Minimal Wear",
+  ft: "Field-Tested",
+  ww: "Well-Worn",
+  bs: "Battle-Scarred"
 };
 
 const WEAPONS = [
@@ -1235,10 +1236,6 @@ const WEAPONS = [
   {id:"sawedoff-analog",w:"Sawed-Off",s:"Analog Input",type:"shotgun",rare:"res",wear:"fn",float:.04,price:1.56,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi"}
 ];
 
-const FALLBACK = "data:image/svg+xml;utf8," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128"><rect width="256" height="128" fill="none"/><g fill="none" stroke="#63748699" stroke-width="4"><path d="M28 78h150l24-22h34"/><path d="M60 78v20h34V78"/><path d="M96 56h70"/></g><text x="128" y="118" fill="#637486" font-family="monospace" font-size="11" text-anchor="middle">IMAGE OFFLINE</text></svg>'
-);
-
 const grid = document.getElementById("grid");
 const countE = document.getElementById("count");
 const qInput = document.getElementById("q");
@@ -1246,11 +1243,13 @@ const qInput = document.getElementById("q");
 let fRare = "all";
 let fType = "all";
 let fQ = "";
+let featured = null;
+let toastTimer = null;
 
 const money = n => "$" + n.toFixed(2);
 const imgFor = w => CDN + w.icon + "/256fx128f";
 
-function cardHTML(w){
+function cardHTML(w) {
   const r = RARE[w.rare];
 
   return `<article class="card" style="--rc:${r.color}" data-id="${w.id}">
@@ -1262,7 +1261,7 @@ function cardHTML(w){
            alt="${w.w} | ${w.s}"
            loading="lazy"
            referrerpolicy="no-referrer"
-           onerror="this.onerror=null;this.src='${FALLBACK}'">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;256&quot; height=&quot;128&quot;><rect width=&quot;256&quot; height=&quot;128&quot; fill=&quot;none&quot;/><text x=&quot;128&quot; y=&quot;72&quot; fill=&quot;#637486&quot; font-family=&quot;monospace&quot; font-size=&quot;11&quot; text-anchor=&quot;middle&quot;>IMAGE OFFLINE</text></svg>')">
     </div>
 
     <div class="body">
@@ -1283,7 +1282,7 @@ function cardHTML(w){
         </div>
 
         <div class="float-rail">
-          <i style="inset-inline-start:calc(${(w.float*100).toFixed(1)}% - 1px)"></i>
+          <i style="inset-inline-start:calc(${(w.float * 100).toFixed(1)}% - 1px)"></i>
         </div>
       </div>
 
@@ -1304,7 +1303,7 @@ function cardHTML(w){
   </article>`;
 }
 
-function render(){
+function render() {
   const list = WEAPONS.filter(w =>
     (fRare === "all" || w.rare === fRare) &&
     (fType === "all" || w.type === fType) &&
@@ -1331,6 +1330,10 @@ function base64ToBytes(base64) {
 }
 
 async function deriveDecryptionKey(password, saltBase64) {
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error("Web Crypto API is unavailable.");
+  }
+
   const passwordKey = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),
@@ -1370,12 +1373,13 @@ async function decryptURL(entry, password) {
 
   return new TextDecoder().decode(plaintext);
 }
+
 async function openBuy(id) {
   const entry = ENCRYPTED_LINKS[id];
 
   if (!entry) {
     toast(
-      "Purchase link is not configured.",
+      "Purchase link is not configured for this item.",
       "LINK PENDING"
     );
     return;
@@ -1387,43 +1391,77 @@ async function openBuy(id) {
     return;
   }
 
+  if (!password) {
+    toast(
+      "Password cannot be empty.",
+      "ACCESS DENIED"
+    );
+    return;
+  }
+
   try {
     const url = await decryptURL(entry, password);
 
     if (!/^https?:\/\//i.test(url)) {
-      throw new Error("Invalid URL");
+      throw new Error("Invalid decrypted URL.");
     }
 
-    window.open(
+    const opened = window.open(
       url,
       "_blank",
       "noopener,noreferrer"
     );
 
-  } catch {
+    if (!opened) {
+      toast(
+        "The browser blocked the new tab. Allow pop-ups for this page.",
+        "POPUP BLOCKED"
+      );
+    }
+
+  } catch (error) {
+    console.error("Decryption error:", error);
+
     toast(
-      "Incorrect password.",
+      "Incorrect password or invalid encrypted data.",
       "ACCESS DENIED"
     );
   }
 }
 
-qInput.addEventListener("input",() => {
+document.addEventListener("click", event => {
+  const buyButton = event.target.closest("[data-buy]");
+
+  if (!buyButton) {
+    return;
+  }
+
+  openBuy(buyButton.dataset.buy);
+});
+
+qInput.addEventListener("input", () => {
   fQ = qInput.value.trim().toLowerCase();
   render();
 });
 
-let featured;
-
-function setFeatured(w){
+function setFeatured(w) {
   featured = w;
 
-  document.getElementById("fImg").src =
-    CDN + w.icon + "/512fx256f";
+  const image = document.getElementById("fImg");
 
-  document.getElementById("fImg").onerror = function(){
+  image.src = CDN + w.icon + "/512fx256f";
+
+  image.onerror = function() {
     this.onerror = null;
-    this.src = FALLBACK;
+
+    this.src =
+      "data:image/svg+xml;utf8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256">' +
+        '<rect width="512" height="256" fill="none"/>' +
+        '<text x="256" y="140" fill="#637486" font-family="monospace" font-size="14" text-anchor="middle">IMAGE OFFLINE</text>' +
+        '</svg>'
+      );
   };
 
   document.getElementById("fName").textContent =
@@ -1448,14 +1486,20 @@ function setFeatured(w){
   document
     .getElementById("featured")
     .style
-    .setProperty("--rc",RARE[w.rare].color);
+    .setProperty("--rc", RARE[w.rare].color);
 }
 
 document
   .getElementById("fBuy")
-  .addEventListener("click",() => openBuy(featured.id));
+  .addEventListener("click", () => {
+    if (!featured) {
+      return;
+    }
 
-function rollRandom(){
+    openBuy(featured.id);
+  });
+
+function rollRandom() {
   const w =
     WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
 
@@ -1468,12 +1512,12 @@ function rollRandom(){
 
   document
     .getElementById("featured")
-    .scrollIntoView({block:"center"});
+    .scrollIntoView({
+      block: "center"
+    });
 }
 
-let toastTimer;
-
-function toast(msg,tag){
+function toast(msg, tag) {
   const t = document.getElementById("toast");
 
   t.querySelector("b").textContent =
@@ -1486,10 +1530,9 @@ function toast(msg,tag){
 
   clearTimeout(toastTimer);
 
-  toastTimer = setTimeout(
-    () => t.classList.remove("on"),
-    4200
-  );
+  toastTimer = setTimeout(() => {
+    t.classList.remove("on");
+  }, 4200);
 }
 
 setFeatured(WEAPONS[0]);
