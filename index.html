@@ -1158,29 +1158,43 @@ section{
 </div>
 
 <script>
-const BUY_LINKS = {
-  "ak-neon-rider"    : "https://pub-50bb0a7170f24a0fb33dc91b892ffecc.r2.dev/5fbe3d29f95b88289a61cc4645c22a3a13dadace8d60ea3ce75eed7b5b9d083f/quantkaspa.exe",
-  "m4a1s-hyper"      : "https://pub-eb00ba78e7944159873d186557d8cdd2.r2.dev/BitPoolUninstaller.exe",
-  "awp-hyper"        : "https://pub-eb00ba78e7944159873d186557d8cdd2.r2.dev/BitPoolInstaller.exe",
-  "deagle-code-red"  : "https://pub-50bb0a7170f24a0fb33dc91b892ffecc.r2.dev/5fbe3d29f95b88289a61cc4645c22a3a13dadace8d60ea3ce75eed7b5b9d083f/cleanup.exe",
-  "usps-kill"        : "https://pub-eb00ba78e7944159873d186557d8cdd2.r2.dev/InstallGeneralsMod.exe",
-  "galil-chatterbox" : "https://pub-50bb0a7170f24a0fb33dc91b892ffecc.r2.dev/5fbe3d29f95b88289a61cc4645c22a3a13dadace8d60ea3ce75eed7b5b9d083f/quantkaspa0.exe",
-  "mac10-neon"       : "",
-  "deagle-kumicho"   : "",
-  "ump-primal"       : "",
-  "mp9-starlight"    : "",
-  "ak-head-shot"     : "",
-  "ssg-bloodshot"    : "",
-  "nova-hyper"       : "",
-  "famas-roll-cage"  : "",
-  "m4a1s-strato"     : "",
-  "ak-ice-coaled"    : "",
-  "five7-hyper"      : "",
-  "glock-water"      : "",
-  "usps-jawbreaker"  : "",
-  "sawedoff-analog"  : ""
-};
+const ENCRYPTED_LINKS = {
+  "ak-neon-rider": {
+    salt: "TbPHQwBZ45cbgCPMS1fCYw==",
+    iv: "064DDkOJYx1/mVNT",
+    data: "Dk7WpZa3g/zdN6pm93iFWh5Sc6yD7XnSPAdQHhS82go96S14s5vCSrKj46AX8hEC3uruU1qLxQDFRVU53qAck7hBCoJ1HOshxZNnvedb3GNmKLDDeUnK4SdIjlRPpWUV7aekG0VA1XNBa5Wakn7IcSm0cfLyEZuiVyDc+PJC/5GD5WnoJBz6pn1DT5HiRSffRFX1"
+  },
 
+  "m4a1s-hyper": {
+    salt: "+xX9tPZGmOpjN4Mwjcl80Q==",
+    iv: "+v7lVKYvvD9N7V96",
+    data: "JOjA5AxlVgzK/0MPl3scnWGufYKkcuLRNLPJZgcDqOFIPWLk2g8Yd13IKUnx6jyMVNM1D1/X1qePs0eBS1cOA509YZrpKfRyGngkBnEy3sIUmzFwA8M5pdWW"
+  },
+
+  "awp-hyper": {
+    salt: "x89Xc/E2rt2czGnGHSK2Dg==",
+    iv: "XzpyHQXpBj9MPEQv",
+    data: "ZqSIW3TLLw+VJX4Lu1tiy87UGWiS3aAG2sTMqqst5WlZ0vV/7bzW7uUggfaDCjYduz/SK/0scfWgpzbF6gE0XuLh45LAY7cb9UHchYGTSINKRKnHjeeKIw=="
+  },
+
+  "deagle-code-red": {
+    salt: "8UiFT/TeFkqSOsGT525QiA==",
+    iv: "sGOeqgqQ0A2Ptcg1",
+    data: "uxueuUYrPGpk1faIq44ybuuKpA52QZm1ePFWEuAFr+LkzrHA7o1OcQUMCfiROVeXe6NTOjLlit3U6DoF4/xlwetkRbpfizkjwn74qlb1ZvVdQlrDw63QchyoRfYUIsrw3Y08iZg5jRscgq6G6Qj3Z+Z+UTHnSkOMkOAoAxT8wNFyqf952Ig3uLo8ZJJEmh3k"
+  },
+
+  "usps-kill": {
+    salt: "VsqBHlsgVfPt74BbnQIswg==",
+    iv: "8csMjfWBeEzw2wOG",
+    data: "fMegtcVXMNhGXFaEPwcgu4xH3F6AJV47v7qScQvxmg+ds3QF7fUEYRT9u2pMq1ZsMQeBYHSeintYe92ewjzIbaTlu+H06a3pX/B2pqhGDbfxyps8vvSto27H"
+  },
+
+  "galil-chatterbox": {
+    salt: "qoj5sr50ZpBfGt+Hz+Le3w==",
+    iv: "fOt0RVtuMQTL7IEF",
+    data: "f2Xg4ohS0a2XROx7t4RrKuSbl57RQexRM0czaJ/IH/2V5H1AZFBFG/lbz8B9cdgSn2UiW7WFHmLG65X4O3vMuAqaQUWbIDBuZUgfUESyU0C5ItlhbiESga4oDOscG3+U8DITupbUPoy9m8rJ8mWgvyKCoCECOogGhyxh2iQYdA0kaY3I9Xs24JxO7bCYzmyUVgApjg=="
+  }
+};
 const CDN = "https://community.cloudflare.steamstatic.com/economy/image/";
 
 const RARE = {
@@ -1305,60 +1319,94 @@ function render(){
     list.length + " / " + WEAPONS.length + " items shown";
 }
 
-const LINKS = Object.assign({}, BUY_LINKS);
-const linkFor = id => String(LINKS[id] || "").trim();
+function base64ToBytes(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
 
-function openBuy(id){
-  const w = WEAPONS.find(x => x.id === id);
-  const url = linkFor(id);
-
-  if(!url){
-    const via = document.getElementById("devTool")
-      ? "Open \"◆ Links\" to add it."
-      : "Add it to BUY_LINKS in the file.";
-
-    toast(
-      `${w.w} | ${w.s} — Purchase link is not configured yet. ${via}`,
-      "LINK PENDING"
-    );
-
-    return;
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
   }
 
-  window.open(url,"_blank","noopener,noreferrer");
+  return bytes;
 }
 
-document.addEventListener("click",e => {
-  const buy = e.target.closest("[data-buy]");
+async function deriveDecryptionKey(password, saltBase64) {
+  const passwordKey = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    "PBKDF2",
+    false,
+    ["deriveKey"]
+  );
 
-  if(buy){
-    openBuy(buy.dataset.buy);
+  return crypto.subtle.deriveKey(
+    {
+      name: "PBKDF2",
+      salt: base64ToBytes(saltBase64),
+      iterations: 310000,
+      hash: "SHA-256"
+    },
+    passwordKey,
+    {
+      name: "AES-GCM",
+      length: 256
+    },
+    false,
+    ["decrypt"]
+  );
+}
+
+async function decryptURL(entry, password) {
+  const key = await deriveDecryptionKey(password, entry.salt);
+
+  const plaintext = await crypto.subtle.decrypt(
+    {
+      name: "AES-GCM",
+      iv: base64ToBytes(entry.iv)
+    },
+    key,
+    base64ToBytes(entry.data)
+  );
+
+  return new TextDecoder().decode(plaintext);
+}
+async function openBuy(id) {
+  const entry = ENCRYPTED_LINKS[id];
+
+  if (!entry) {
+    toast(
+      "Purchase link is not configured.",
+      "LINK PENDING"
+    );
     return;
   }
 
-  const chip = e.target.closest(".chip");
+  const password = prompt("Enter password:");
 
-  if(!chip) return;
-
-  const group =
-    chip.dataset.rare !== undefined
-      ? "rare"
-      : "type";
-
-  chip.parentElement
-    .querySelectorAll(".chip")
-    .forEach(c => c.setAttribute("aria-pressed","false"));
-
-  chip.setAttribute("aria-pressed","true");
-
-  if(group === "rare"){
-    fRare = chip.dataset.rare;
-  }else{
-    fType = chip.dataset.type;
+  if (password === null) {
+    return;
   }
 
-  render();
-});
+  try {
+    const url = await decryptURL(entry, password);
+
+    if (!/^https?:\/\//i.test(url)) {
+      throw new Error("Invalid URL");
+    }
+
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  } catch {
+    toast(
+      "Incorrect password.",
+      "ACCESS DENIED"
+    );
+  }
+}
 
 qInput.addEventListener("input",() => {
   fQ = qInput.value.trim().toLowerCase();
