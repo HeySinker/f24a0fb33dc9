@@ -1,13 +1,12 @@
 <!doctype html>
-<html><head><title>خزنة الأسلحة</title>
+<html>
+<head>
+<title>Weapon Vault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Changa:wght@500;700;800&amp;family=Tajawal:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
 
 <style>
-/* ============================================================
-   خزنة الأسلحة — لوحة ألوان مثبّتة (عالم داكن واحد، مقصود)
-   ============================================================ */
 :root{
   --ground:#0b0f14;
   --ground-2:#0e141b;
@@ -20,25 +19,29 @@
   --ink-3:#63748699;
   --amber:#e0a03a;
   --amber-dim:#8a6320;
-  --stat:#cf6a32;          /* StatTrak */
+  --stat:#cf6a32;
   --ok:#5ec27a;
 
-  /* ندرات CS2 الحقيقية — لون = معلومة */
   --r-mil:#4b69ff;
   --r-res:#8847ff;
   --r-cls:#d32ce6;
   --r-cov:#eb4b4b;
   --r-gold:#e4ae39;
 
-  --f-display:"Changa","Segoe UI",system-ui,sans-serif;
-  --f-body:"Tajawal","Segoe UI",system-ui,sans-serif;
+  --f-display:"Inter","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter","Segoe UI",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
 
-  --r-sm:3px; --r-md:6px;
+  --r-sm:3px;
+  --r-md:6px;
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   background:var(--ground);
@@ -46,8 +49,8 @@ body{
   font-family:var(--f-body);
   font-size:15px;
   line-height:1.7;
-  direction:rtl;
-  text-align:right;
+  direction:ltr;
+  text-align:left;
   overflow-x:hidden;
   background-image:
     radial-gradient(900px 460px at 78% -8%, #1b2a3a 0%, transparent 62%),
@@ -55,239 +58,849 @@ body{
     repeating-linear-gradient(0deg, transparent 0 3px, #ffffff05 3px 4px);
   background-attachment:fixed;
 }
-::selection{background:var(--amber);color:#0b0f14}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
 
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+::selection{
+  background:var(--amber);
+  color:#0b0f14;
+}
 
-/* ---------- الشريط العلوي ---------- */
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font-family:inherit;
+}
+
+:focus-visible{
+  outline:2px solid var(--amber);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 22px;
+}
+
 .topbar{
-  position:sticky;top:0;z-index:40;
+  position:sticky;
+  top:0;
+  z-index:40;
   background:#0b0f14ec;
   border-bottom:1px solid var(--line);
   backdrop-filter:blur(9px);
 }
-.topbar-in{display:flex;align-items:center;gap:26px;height:60px}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:.2px}
-.brand svg{flex:0 0 auto}
-.brand span{color:var(--amber)}
-.nav{display:flex;gap:22px;font-size:14px;color:var(--ink-2);font-weight:500}
-.nav a:hover{color:var(--ink)}
-.topbar-end{margin-inline-start:auto;display:flex;align-items:center;gap:12px}
-.balance{
-  font-family:var(--f-mono);font-size:13px;color:var(--amber);
-  border:1px solid var(--amber-dim);background:#e0a03a12;
-  padding:5px 11px;border-radius:var(--r-sm);
-}
-.icon-btn{
-  width:34px;height:34px;display:grid;place-items:center;cursor:pointer;
-  background:var(--panel);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--ink-2);
-}
-.icon-btn:hover{color:var(--amber);border-color:var(--amber-dim)}
 
-/* شريط أخبار متحرك */
+.topbar-in{
+  display:flex;
+  align-items:center;
+  gap:26px;
+  height:60px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--f-display);
+  font-weight:800;
+  font-size:19px;
+  letter-spacing:.2px;
+}
+
+.brand svg{
+  flex:0 0 auto;
+}
+
+.brand span{
+  color:var(--amber);
+}
+
+.nav{
+  display:flex;
+  gap:22px;
+  font-size:14px;
+  color:var(--ink-2);
+  font-weight:500;
+}
+
+.nav a:hover{
+  color:var(--ink);
+}
+
+.topbar-end{
+  margin-inline-start:auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.balance{
+  font-family:var(--f-mono);
+  font-size:13px;
+  color:var(--amber);
+  border:1px solid var(--amber-dim);
+  background:#e0a03a12;
+  padding:5px 11px;
+  border-radius:var(--r-sm);
+}
+
+.icon-btn{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+  color:var(--ink-2);
+}
+
+.icon-btn:hover{
+  color:var(--amber);
+  border-color:var(--amber-dim);
+}
+
 .ticker{
   border-bottom:1px solid var(--line-soft);
   background:linear-gradient(90deg,#0e141b,#141c26,#0e141b);
-  overflow:hidden;font-family:var(--f-mono);font-size:12px;color:var(--ink-2);
+  overflow:hidden;
+  font-family:var(--f-mono);
+  font-size:12px;
+  color:var(--ink-2);
 }
-.ticker-track{display:flex;gap:44px;white-space:nowrap;padding:7px 0;animation:slide 34s linear infinite}
-.ticker b{color:var(--ok);font-weight:600}
-.ticker i{color:var(--r-cov);font-style:normal}
-@keyframes slide{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
-/* ---------- الواجهة الرئيسية: العنوان + السلاح المميّز ---------- */
-.hero{display:grid;grid-template-columns:1fr .92fr;gap:40px;align-items:center;padding:48px 0 40px}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--f-mono);font-size:11px;letter-spacing:2px;color:var(--amber);
-  border:1px solid var(--amber-dim);padding:4px 10px;border-radius:99px;background:#e0a03a0f;
+.ticker-track{
+  display:flex;
+  gap:44px;
+  white-space:nowrap;
+  padding:7px 0;
+  animation:slide 34s linear infinite;
 }
-.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+
+.ticker b{
+  color:var(--ok);
+  font-weight:600;
+}
+
+.ticker i{
+  color:var(--r-cov);
+  font-style:normal;
+}
+
+@keyframes slide{
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1fr .92fr;
+  gap:40px;
+  align-items:center;
+  padding:48px 0 40px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--amber);
+  border:1px solid var(--amber-dim);
+  padding:4px 10px;
+  border-radius:99px;
+  background:#e0a03a0f;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ok);
+  box-shadow:0 0 8px var(--ok);
+}
+
 h1{
-  font-family:var(--f-display);font-weight:800;
-  font-size:clamp(34px,5.2vw,58px);line-height:1.15;margin:16px 0 14px;
+  font-family:var(--f-display);
+  font-weight:800;
+  font-size:clamp(34px,5.2vw,58px);
+  line-height:1.15;
+  margin:16px 0 14px;
   text-wrap:balance;
 }
-h1 em{font-style:normal;color:var(--amber)}
-.lede{color:var(--ink-2);max-width:46ch;font-size:16px;margin:0 0 26px}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+
+h1 em{
+  font-style:normal;
+  color:var(--amber);
+}
+
+.lede{
+  color:var(--ink-2);
+  max-width:46ch;
+  font-size:16px;
+  margin:0 0 26px;
+}
+
+.hero-cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
 
 .btn{
-  display:inline-flex;align-items:center;gap:9px;cursor:pointer;
-  font-family:var(--f-display);font-weight:700;font-size:15px;
-  padding:12px 24px;border-radius:var(--r-sm);border:1px solid transparent;
-  transition:transform .12s ease, box-shadow .2s ease, background .2s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  cursor:pointer;
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:15px;
+  padding:12px 24px;
+  border-radius:var(--r-sm);
+  border:1px solid transparent;
+  transition:transform .12s ease,box-shadow .2s ease,background .2s ease;
 }
-.btn-main{background:var(--amber);color:#120c02;box-shadow:0 0 0 0 #e0a03a55}
-.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 22px -8px #e0a03a99}
-.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
-.btn-ghost:hover{border-color:var(--amber-dim);color:var(--amber)}
 
-/* بطاقة السلاح المميّز */
-.featured{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:var(--r-md);overflow:hidden}
+.btn-main{
+  background:var(--amber);
+  color:#120c02;
+  box-shadow:0 0 0 0 #e0a03a55;
+}
+
+.btn-main:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px -8px #e0a03a99;
+}
+
+.btn-ghost{
+  background:transparent;
+  border-color:var(--line);
+  color:var(--ink);
+}
+
+.btn-ghost:hover{
+  border-color:var(--amber-dim);
+  color:var(--amber);
+}
+
+.featured{
+  position:relative;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:var(--r-md);
+  overflow:hidden;
+}
+
 .featured::before{
-  content:"";position:absolute;inset:0;
+  content:"";
+  position:absolute;
+  inset:0;
   background:
     repeating-linear-gradient(135deg,#ffffff06 0 12px,transparent 12px 34px),
-    radial-gradient(70% 60% at 50% 42%, color-mix(in srgb, var(--rc,#eb4b4b) 22%, transparent), transparent 70%);
+    radial-gradient(70% 60% at 50% 42%,color-mix(in srgb,var(--rc,#eb4b4b) 22%,transparent),transparent 70%);
   pointer-events:none;
 }
-.featured-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line-soft);position:relative}
-.featured-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:1.5px;color:var(--ink-2)}
-.featured-img{display:block;width:100%;height:250px;object-fit:contain;padding:14px 22px;position:relative;
-  filter:drop-shadow(0 14px 26px #000a);animation:float 6s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-9px)}}
-.featured-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;padding:14px 16px;border-top:1px solid var(--line-soft);position:relative}
-.featured-name{font-family:var(--f-display);font-weight:700;font-size:19px}
-.featured-sub{font-size:12.5px;color:var(--ink-2)}
-.featured-price{font-family:var(--f-mono);font-size:22px;color:var(--amber);font-variant-numeric:tabular-nums}
 
-/* ---------- شريط الإحصاءات ---------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;margin-bottom:56px}
-.stat{background:var(--ground-2);padding:16px 18px}
-.stat b{display:block;font-family:var(--f-mono);font-size:23px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.3}
-.stat span{font-size:12.5px;color:var(--ink-2)}
+.featured-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+}
 
-/* ---------- ترويسة القسم ---------- */
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px;flex-wrap:wrap}
-h2{font-family:var(--f-display);font-weight:800;font-size:27px;margin:0}
-.sec-head p{margin:5px 0 0;color:var(--ink-2);font-size:14px}
-.hint{font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
+.featured-tag{
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:1.5px;
+  color:var(--ink-2);
+}
 
-/* ---------- الفلاتر ---------- */
-.filters{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
-.frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.flabel{font-family:var(--f-mono);font-size:11px;letter-spacing:1.4px;color:var(--ink-3);min-width:74px}
+.featured-img{
+  display:block;
+  width:100%;
+  height:250px;
+  object-fit:contain;
+  padding:14px 22px;
+  position:relative;
+  filter:drop-shadow(0 14px 26px #000a);
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  50%{transform:translateY(-9px)}
+}
+
+.featured-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:14px;
+  padding:14px 16px;
+  border-top:1px solid var(--line-soft);
+  position:relative;
+}
+
+.featured-name{
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:19px;
+}
+
+.featured-sub{
+  font-size:12.5px;
+  color:var(--ink-2);
+}
+
+.featured-price{
+  font-family:var(--f-mono);
+  font-size:22px;
+  color:var(--amber);
+  font-variant-numeric:tabular-nums;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--line-soft);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  margin-bottom:56px;
+}
+
+.stat{
+  background:var(--ground-2);
+  padding:16px 18px;
+}
+
+.stat b{
+  display:block;
+  font-family:var(--f-mono);
+  font-size:23px;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+  line-height:1.3;
+}
+
+.stat span{
+  font-size:12.5px;
+  color:var(--ink-2);
+}
+
+.sec-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+
+h2{
+  font-family:var(--f-display);
+  font-weight:800;
+  font-size:27px;
+  margin:0;
+}
+
+.sec-head p{
+  margin:5px 0 0;
+  color:var(--ink-2);
+  font-size:14px;
+}
+
+.hint{
+  font-family:var(--f-mono);
+  font-size:12px;
+  color:var(--ink-3);
+}
+
+.filters{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.frow{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.flabel{
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:1.4px;
+  color:var(--ink-3);
+  min-width:74px;
+}
+
 .chip{
-  cursor:pointer;background:var(--panel);border:1px solid var(--line);color:var(--ink-2);
-  font-size:13px;font-weight:500;padding:6px 14px;border-radius:99px;
-  display:inline-flex;align-items:center;gap:7px;transition:.15s;
+  cursor:pointer;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--ink-2);
+  font-size:13px;
+  font-weight:500;
+  padding:6px 14px;
+  border-radius:99px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  transition:.15s;
 }
-.chip:hover{color:var(--ink);border-color:#3a4a5a}
-.chip[aria-pressed="true"]{background:#e0a03a1a;border-color:var(--amber);color:var(--amber)}
-.chip .sw{width:8px;height:8px;border-radius:2px}
+
+.chip:hover{
+  color:var(--ink);
+  border-color:#3a4a5a;
+}
+
+.chip[aria-pressed="true"]{
+  background:#e0a03a1a;
+  border-color:var(--amber);
+  color:var(--amber);
+}
+
+.chip .sw{
+  width:8px;
+  height:8px;
+  border-radius:2px;
+}
+
 .search{
-  margin-inline-start:auto;background:var(--panel);border:1px solid var(--line);
-  color:var(--ink);padding:7px 13px;border-radius:var(--r-sm);font-family:var(--f-body);font-size:13.5px;width:210px;
+  margin-inline-start:auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--ink);
+  padding:7px 13px;
+  border-radius:var(--r-sm);
+  font-family:var(--f-body);
+  font-size:13.5px;
+  width:210px;
 }
-.search::placeholder{color:var(--ink-3)}
-.search:focus{border-color:var(--amber-dim);outline:none}
 
-/* ---------- شبكة الأسلحة ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.search::placeholder{
+  color:var(--ink-3);
+}
+
+.search:focus{
+  border-color:var(--amber-dim);
+  outline:none;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(232px,1fr));
+  gap:14px;
+}
+
 .card{
-  position:relative;display:flex;flex-direction:column;
-  background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);
-  overflow:hidden;transition:border-color .18s ease, transform .18s ease;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  transition:border-color .18s ease,transform .18s ease;
 }
-.card:hover{border-color:#41525f;transform:translateY(-3px)}
-.card .rare-bar{height:3px;background:var(--rc)}
+
+.card:hover{
+  border-color:#41525f;
+  transform:translateY(-3px);
+}
+
+.card .rare-bar{
+  height:3px;
+  background:var(--rc);
+}
+
 .card .shot{
-  position:relative;height:132px;display:grid;place-items:center;padding:8px;
-  background:radial-gradient(60% 70% at 50% 62%, color-mix(in srgb,var(--rc) 26%, transparent), transparent 72%);
+  position:relative;
+  height:132px;
+  display:grid;
+  place-items:center;
+  padding:8px;
+  background:radial-gradient(60% 70% at 50% 62%,color-mix(in srgb,var(--rc) 26%,transparent),transparent 72%);
 }
-.card .shot img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .22s ease;filter:drop-shadow(0 8px 14px #000c)}
-.card:hover .shot img{transform:scale(1.07) rotate(-1.5deg)}
+
+.card .shot img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  transition:transform .22s ease;
+  filter:drop-shadow(0 8px 14px #000c);
+}
+
+.card:hover .shot img{
+  transform:scale(1.07) rotate(-1.5deg);
+}
+
 .badge-st{
-  position:absolute;top:8px;inset-inline-start:8px;
-  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.6px;
-  color:var(--stat);border:1px solid var(--stat);background:#0b0f14cc;padding:2px 5px;border-radius:2px;
+  position:absolute;
+  top:8px;
+  inset-inline-start:8px;
+  font-family:var(--f-mono);
+  font-size:9.5px;
+  letter-spacing:.6px;
+  color:var(--stat);
+  border:1px solid var(--stat);
+  background:#0b0f14cc;
+  padding:2px 5px;
+  border-radius:2px;
 }
-.card .body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:9px;flex:1}
-.wname{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);letter-spacing:.8px}
-.sname{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.35;color:var(--ink)}
-.meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.pill{font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink-2);background:var(--panel-2)}
-.pill.rare{border-color:var(--rc);color:var(--rc);background:color-mix(in srgb,var(--rc) 12%, transparent)}
 
-/* شريط الـ float — تفصيلة من عالم CS2 نفسه */
-.float{display:flex;flex-direction:column;gap:4px;margin-top:auto}
-.float-top{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--ink-3)}
-.float-rail{height:5px;border-radius:99px;overflow:hidden;position:relative;
-  background:linear-gradient(90deg,#5ec27a 0 7%,#a5c25e 7% 15%,#e0a03a 15% 38%,#cf6a32 38% 45%,#eb4b4b 45% 100%)}
-.float-rail i{position:absolute;top:-3px;width:2px;height:11px;background:var(--ink);box-shadow:0 0 4px #000}
-.buyrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--line-soft)}
-.price{font-family:var(--f-mono);font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
-.price small{display:block;font-size:10px;color:var(--ink-3)}
+.card .body{
+  padding:11px 13px 13px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  flex:1;
+}
+
+.wname{
+  font-family:var(--f-mono);
+  font-size:11px;
+  color:var(--ink-3);
+  letter-spacing:.8px;
+}
+
+.sname{
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:16px;
+  line-height:1.35;
+  color:var(--ink);
+}
+
+.meta{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.pill{
+  font-size:11px;
+  padding:2px 8px;
+  border-radius:99px;
+  border:1px solid var(--line);
+  color:var(--ink-2);
+  background:var(--panel-2);
+}
+
+.pill.rare{
+  border-color:var(--rc);
+  color:var(--rc);
+  background:color-mix(in srgb,var(--rc) 12%,transparent);
+}
+
+.float{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-top:auto;
+}
+
+.float-top{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--f-mono);
+  font-size:10px;
+  color:var(--ink-3);
+}
+
+.float-rail{
+  height:5px;
+  border-radius:99px;
+  overflow:hidden;
+  position:relative;
+  background:linear-gradient(
+    90deg,
+    #5ec27a 0 7%,
+    #a5c25e 7% 15%,
+    #e0a03a 15% 38%,
+    #cf6a32 38% 45%,
+    #eb4b4b 45% 100%
+  );
+}
+
+.float-rail i{
+  position:absolute;
+  top:-3px;
+  width:2px;
+  height:11px;
+  background:var(--ink);
+  box-shadow:0 0 4px #000;
+}
+
+.buyrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding-top:10px;
+  border-top:1px solid var(--line-soft);
+}
+
+.price{
+  font-family:var(--f-mono);
+  font-size:16px;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+
+.price small{
+  display:block;
+  font-size:10px;
+  color:var(--ink-3);
+}
+
 .buy{
-  cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:13.5px;
-  background:var(--amber);color:#120c02;border:none;padding:8px 17px;border-radius:var(--r-sm);
-  display:inline-flex;align-items:center;gap:6px;transition:.15s;
+  cursor:pointer;
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:13.5px;
+  background:var(--amber);
+  color:#120c02;
+  border:none;
+  padding:8px 17px;
+  border-radius:var(--r-sm);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:.15s;
 }
-.buy:hover{background:#f3b34f}
-.buy svg{opacity:.8}
-.empty{grid-column:1/-1;text-align:center;padding:52px 0;color:var(--ink-3);font-family:var(--f-mono);font-size:13px}
 
-/* ---------- الألعاب المدعومة ---------- */
-.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:12px}
-.game{position:relative;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--panel)}
-.game img{display:block;width:100%;aspect-ratio:460/215;object-fit:cover;opacity:.72;transition:.2s}
-.game:hover img{opacity:1;transform:scale(1.03)}
-.game figcaption{position:absolute;inset-inline:0;bottom:0;padding:16px 11px 8px;
+.buy:hover{
+  background:#f3b34f;
+}
+
+.buy svg{
+  opacity:.8;
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:52px 0;
+  color:var(--ink-3);
+  font-family:var(--f-mono);
+  font-size:13px;
+}
+
+.games{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(196px,1fr));
+  gap:12px;
+}
+
+.game{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  background:var(--panel);
+}
+
+.game img{
+  display:block;
+  width:100%;
+  aspect-ratio:460/215;
+  object-fit:cover;
+  opacity:.72;
+  transition:.2s;
+}
+
+.game:hover img{
+  opacity:1;
+  transform:scale(1.03);
+}
+
+.game figcaption{
+  position:absolute;
+  inset-inline:0;
+  bottom:0;
+  padding:16px 11px 8px;
   background:linear-gradient(to top,#0b0f14ee,transparent);
-  font-family:var(--f-mono);font-size:11px;color:var(--ink-2)}
-
-/* ---------- شبكة التفاصيل ---------- */
-.info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.info-card{border:1px solid var(--line);border-radius:var(--r-md);background:var(--ground-2);padding:20px}
-.info-card h3{font-family:var(--f-display);font-size:17px;margin:12px 0 7px}
-.info-card p{margin:0;color:var(--ink-2);font-size:13.5px}
-.info-num{font-family:var(--f-mono);font-size:12px;color:var(--amber)}
-
-/* ---------- التذييل ---------- */
-footer{margin-top:64px;border-top:1px solid var(--line);background:var(--ground-2)}
-.foot-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:30px 0}
-.foot-in p{margin:0;color:var(--ink-3);font-size:12.5px;max-width:56ch}
-.foot-links{display:flex;gap:18px;font-size:13px;color:var(--ink-2)}
-.foot-links a:hover{color:var(--amber)}
-
-section{padding-bottom:56px}
-
-/* ---------- التنبيه ---------- */
-#toast{
-  position:fixed;bottom:22px;inset-inline-start:22px;z-index:90;
-  background:var(--panel);border:1px solid var(--amber-dim);border-inline-start:3px solid var(--amber);
-  color:var(--ink);padding:12px 18px;border-radius:var(--r-sm);font-size:14px;
-  box-shadow:0 14px 34px #0009;transform:translateY(140%);transition:transform .28s cubic-bezier(.2,.8,.3,1);
+  font-family:var(--f-mono);
+  font-size:11px;
+  color:var(--ink-2);
 }
-#toast.on{transform:translateY(0)}
-#toast b{color:var(--amber);font-family:var(--f-mono);font-size:12.5px;display:block}
 
+.info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
 
+.info-card{
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  background:var(--ground-2);
+  padding:20px;
+}
+
+.info-card h3{
+  font-family:var(--f-display);
+  font-size:17px;
+  margin:12px 0 7px;
+}
+
+.info-card p{
+  margin:0;
+  color:var(--ink-2);
+  font-size:13.5px;
+}
+
+.info-num{
+  font-family:var(--f-mono);
+  font-size:12px;
+  color:var(--amber);
+}
+
+footer{
+  margin-top:64px;
+  border-top:1px solid var(--line);
+  background:var(--ground-2);
+}
+
+.foot-in{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding:30px 0;
+}
+
+.foot-in p{
+  margin:0;
+  color:var(--ink-3);
+  font-size:12.5px;
+  max-width:56ch;
+}
+
+.foot-links{
+  display:flex;
+  gap:18px;
+  font-size:13px;
+  color:var(--ink-2);
+}
+
+.foot-links a:hover{
+  color:var(--amber);
+}
+
+section{
+  padding-bottom:56px;
+}
+
+#toast{
+  position:fixed;
+  bottom:22px;
+  inset-inline-start:22px;
+  z-index:90;
+  background:var(--panel);
+  border:1px solid var(--amber-dim);
+  border-inline-start:3px solid var(--amber);
+  color:var(--ink);
+  padding:12px 18px;
+  border-radius:var(--r-sm);
+  font-size:14px;
+  box-shadow:0 14px 34px #0009;
+  transform:translateY(140%);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1);
+}
+
+#toast.on{
+  transform:translateY(0);
+}
+
+#toast b{
+  color:var(--amber);
+  font-family:var(--f-mono);
+  font-size:12.5px;
+  display:block;
+}
 
 @media (max-width:900px){
-  .hero{grid-template-columns:1fr;gap:26px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .info{grid-template-columns:1fr}
-  .nav{display:none}
-  .search{margin-inline-start:0;width:100%}
+  .hero{
+    grid-template-columns:1fr;
+    gap:26px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  .nav{
+    display:none;
+  }
+
+  .search{
+    margin-inline-start:0;
+    width:100%;
+  }
 }
+
 @media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  *{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto;
+  }
 }
 </style>
+</head>
 
-</head><body><header class="topbar">
+<body>
+
+<header class="topbar">
   <div class="wrap topbar-in">
     <div class="brand">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 1.6 21.4 6v6.4c0 5.2-3.8 8.9-9.4 10-5.6-1.1-9.4-4.8-9.4-10V6L12 1.6Z" stroke="#e0a03a" stroke-width="1.6"></path>
         <path d="M7.6 12.2h8.8M12 7.8v8.8" stroke="#e0a03a" stroke-width="1.6" stroke-linecap="square"></path>
       </svg>
-      خزنة <span>الأسلحة</span>
+      Weapon <span>Vault</span>
     </div>
+
     <nav class="nav">
-      <a href="#vault">الخزنة</a>
-      <a href="#games">الألعاب</a>
-      <a href="#how">كيف تشتري</a>
+      <a href="#vault">Vault</a>
+      <a href="#games">Games</a>
+      <a href="#how">How to Buy</a>
     </nav>
+
     <div class="topbar-end">
       <span class="balance">$0.00</span>
-      <button class="icon-btn" type="button" aria-label="السلة" onclick="toast('السلة فارغة','CART / 0 ITEMS')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.6 12.4h11L21 7H6"></path></svg>
+
+      <button
+        class="icon-btn"
+        type="button"
+        aria-label="Cart"
+        onclick="toast('Your cart is empty','CART / 0 ITEMS')"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="9" cy="20" r="1.4"></circle>
+          <circle cx="18" cy="20" r="1.4"></circle>
+          <path d="M2 3h3l2.6 12.4h11L21 7H6"></path>
+        </svg>
       </button>
     </div>
   </div>
@@ -295,8 +908,19 @@ section{padding-bottom:56px}
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>السوق مفتوح <b>●</b></span><span>AK-47 | Head Shot <b>▲ 4.2%</b></span><span>M4A1-S | Hyper Beast <i>▼ 1.8%</i></span><span>آخر عملية: <b>$243.15</b></span><span>وقت التسليم المتوسط <b>3 د 12 ث</b></span><span>2,481 عرضًا نشطًا</span>
-    <span>السوق مفتوح <b>●</b></span><span>AK-47 | Head Shot <b>▲ 4.2%</b></span><span>M4A1-S | Hyper Beast <i>▼ 1.8%</i></span><span>آخر عملية: <b>$243.15</b></span><span>وقت التسليم المتوسط <b>3 د 12 ث</b></span><span>2,481 عرضًا نشطًا</span>
+    <span>Market Open <b>●</b></span>
+    <span>AK-47 | Head Shot <b>▲ 4.2%</b></span>
+    <span>M4A1-S | Hyper Beast <i>▼ 1.8%</i></span>
+    <span>Last Sale: <b>$243.15</b></span>
+    <span>Average Delivery <b>3m 12s</b></span>
+    <span>2,481 Active Listings</span>
+
+    <span>Market Open <b>●</b></span>
+    <span>AK-47 | Head Shot <b>▲ 4.2%</b></span>
+    <span>M4A1-S | Hyper Beast <i>▼ 1.8%</i></span>
+    <span>Last Sale: <b>$243.15</b></span>
+    <span>Average Delivery <b>3m 12s</b></span>
+    <span>2,481 Active Listings</span>
   </div>
 </div>
 
@@ -304,150 +928,236 @@ section{padding-bottom:56px}
 
   <div class="hero">
     <div>
-      <span class="eyebrow"><span class="dot"></span> الخوادم متصلة — التسليم فوري</span>
-      <h1>افتح الخزنة. <em>اختر سلاحك.</em></h1>
-      <p class="lede">قائمة جاهزة من جلود الأسلحة مرتّبة حسب الندرة ودرجة التآكل. اضغط «شراء» على أي بطاقة لتنتقل إلى صفحة الدفع الخارجية الخاصة بها.</p>
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Servers Connected — Instant Delivery
+      </span>
+
+      <h1>Open the Vault. <em>Choose Your Weapon.</em></h1>
+
+      <p class="lede">
+        A curated selection of weapon skins sorted by rarity and wear level.
+        Click "Buy" on any card to continue to its external checkout page.
+      </p>
+
       <div class="hero-cta">
-        <a class="btn btn-main" href="#vault">تصفّح الخزنة</a>
-        <button class="btn btn-ghost" type="button" onclick="rollRandom()">افتح صندوقًا عشوائيًا</button>
+        <a class="btn btn-main" href="#vault">Browse the Vault</a>
+
+        <button class="btn btn-ghost" type="button" onclick="rollRandom()">
+          Open a Random Case
+        </button>
       </div>
     </div>
 
     <figure class="featured" id="featured">
       <div class="featured-head">
         <span class="featured-tag" id="fTag">FEATURED / AK-47</span>
-        <span class="featured-tag" id="fRare" style="color:var(--rc,#eb4b4b)">■ سرّي</span>
+        <span class="featured-tag" id="fRare" style="color:var(--rc,#eb4b4b)">■ Classified</span>
       </div>
-      <img class="featured-img" id="fImg" alt="السلاح المميّز">
+
+      <img class="featured-img" id="fImg" alt="Featured weapon">
+
       <figcaption class="featured-foot">
         <div>
           <div class="featured-name" id="fName">AK-47 | Neon Rider</div>
-          <div class="featured-sub" id="fSub">سرّي · مُختبَر · Float 0.240</div>
+          <div class="featured-sub" id="fSub">Classified · Field-Tested · Float 0.240</div>
         </div>
-        <div style="text-align:left">
+
+        <div style="text-align:right">
           <div class="featured-price" id="fPrice">$60.65</div>
-          <button class="buy" type="button" id="fBuy" style="margin-top:6px">شراء الآن</button>
+          <button class="buy" type="button" id="fBuy" style="margin-top:6px">
+            Buy Now
+          </button>
         </div>
       </figcaption>
     </figure>
   </div>
 
   <div class="stats">
-    <div class="stat"><b>20</b><span>قطعة في المخزون</span></div>
-    <div class="stat"><b>4</b><span>مستويات ندرة</span></div>
-    <div class="stat"><b>99.4%</b><span>عمليات ناجحة</span></div>
-    <div class="stat"><b>24/7</b><span>دعم بالعربية</span></div>
+    <div class="stat"><b>20</b><span>Items in Stock</span></div>
+    <div class="stat"><b>4</b><span>Rarity Levels</span></div>
+    <div class="stat"><b>99.4%</b><span>Successful Orders</span></div>
+    <div class="stat"><b>24/7</b><span>Customer Support</span></div>
   </div>
 
-  <!-- ======= الواجهة الرئيسية: قائمة الأسلحة ======= -->
   <section id="vault">
     <div class="sec-head">
       <div>
-        <h2>قائمة الأسلحة</h2>
-        <p>الأسعار بالدولار الأمريكي. كل بطاقة تعرض قيمة التآكل الفعلية (Float).</p>
+        <h2>Weapon Listings</h2>
+        <p>Prices are in USD. Each card displays the actual wear value (Float).</p>
       </div>
-      <span class="hint" id="count">20 / 20 قطعة معروضة</span>
+
+      <span class="hint" id="count">20 / 20 items shown</span>
     </div>
 
     <div class="filters">
+
       <div class="frow">
-        <span class="flabel">النـدرة</span>
-        <button class="chip" data-rare="all" aria-pressed="true">الكل</button>
-        <button class="chip" data-rare="cov" aria-pressed="false"><span class="sw" style="background:#eb4b4b"></span>سرّي</button>
-        <button class="chip" data-rare="cls" aria-pressed="false"><span class="sw" style="background:#d32ce6"></span>مصنّف</button>
-        <button class="chip" data-rare="res" aria-pressed="false"><span class="sw" style="background:#8847ff"></span>مقيّد</button>
-        <button class="chip" data-rare="mil" aria-pressed="false"><span class="sw" style="background:#4b69ff"></span>عسكري</button>
+        <span class="flabel">RARITY</span>
+
+        <button class="chip" data-rare="all" aria-pressed="true">All</button>
+
+        <button class="chip" data-rare="cov" aria-pressed="false">
+          <span class="sw" style="background:#eb4b4b"></span>
+          Covert
+        </button>
+
+        <button class="chip" data-rare="cls" aria-pressed="false">
+          <span class="sw" style="background:#d32ce6"></span>
+          Classified
+        </button>
+
+        <button class="chip" data-rare="res" aria-pressed="false">
+          <span class="sw" style="background:#8847ff"></span>
+          Restricted
+        </button>
+
+        <button class="chip" data-rare="mil" aria-pressed="false">
+          <span class="sw" style="background:#4b69ff"></span>
+          Mil-Spec
+        </button>
       </div>
+
       <div class="frow">
-        <span class="flabel">النـوع</span>
-        <button class="chip" data-type="all" aria-pressed="true">الكل</button>
-        <button class="chip" data-type="rifle" aria-pressed="false">بنادق</button>
-        <button class="chip" data-type="sniper" aria-pressed="false">قنص</button>
-        <button class="chip" data-type="pistol" aria-pressed="false">مسدسات</button>
-        <button class="chip" data-type="smg" aria-pressed="false">رشاشات</button>
-        <button class="chip" data-type="shotgun" aria-pressed="false">خرطوش</button>
-        <input class="search" id="q" type="search" placeholder="ابحث باسم السلاح أو الجلد…" aria-label="بحث">
+        <span class="flabel">TYPE</span>
+
+        <button class="chip" data-type="all" aria-pressed="true">All</button>
+        <button class="chip" data-type="rifle" aria-pressed="false">Rifles</button>
+        <button class="chip" data-type="sniper" aria-pressed="false">Snipers</button>
+        <button class="chip" data-type="pistol" aria-pressed="false">Pistols</button>
+        <button class="chip" data-type="smg" aria-pressed="false">SMGs</button>
+        <button class="chip" data-type="shotgun" aria-pressed="false">Shotguns</button>
+
+        <input
+          class="search"
+          id="q"
+          type="search"
+          placeholder="Search weapon or skin..."
+          aria-label="Search"
+        >
       </div>
     </div>
 
     <div class="grid" id="grid"></div>
   </section>
 
-  <!-- ======= الألعاب ======= -->
   <section id="games">
     <div class="sec-head">
       <div>
-        <h2>الألعاب المدعومة</h2>
-        <p>حسابات وعناصر داخل اللعبة لأشهر عناوين المتجر.</p>
+        <h2>Supported Games</h2>
+        <p>Game accounts and items for some of the store's most popular titles.</p>
       </div>
+
       <span class="hint">STEAM STOREFRONT ARTWORK</span>
     </div>
+
     <div class="games">
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg" alt="Counter-Strike 2" loading="lazy" referrerpolicy="no-referrer"><figcaption>COUNTER-STRIKE 2</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg" alt="Dota 2" loading="lazy" referrerpolicy="no-referrer"><figcaption>DOTA 2</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg" alt="Apex Legends" loading="lazy" referrerpolicy="no-referrer"><figcaption>APEX LEGENDS</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg" alt="PUBG" loading="lazy" referrerpolicy="no-referrer"><figcaption>PUBG: BATTLEGROUNDS</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/252490/header.jpg" alt="Rust" loading="lazy" referrerpolicy="no-referrer"><figcaption>RUST</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg" alt="Rainbow Six Siege" loading="lazy" referrerpolicy="no-referrer"><figcaption>RAINBOW SIX SIEGE</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg" alt="GTA V" loading="lazy" referrerpolicy="no-referrer"><figcaption>GRAND THEFT AUTO V</figcaption></figure>
-      <figure class="game"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="Elden Ring" loading="lazy" referrerpolicy="no-referrer"><figcaption>ELDEN RING</figcaption></figure>
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg" alt="Counter-Strike 2" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>COUNTER-STRIKE 2</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg" alt="Dota 2" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>DOTA 2</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg" alt="Apex Legends" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>APEX LEGENDS</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg" alt="PUBG" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>PUBG: BATTLEGROUNDS</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/252490/header.jpg" alt="Rust" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>RUST</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg" alt="Rainbow Six Siege" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>RAINBOW SIX SIEGE</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg" alt="GTA V" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>GRAND THEFT AUTO V</figcaption>
+      </figure>
+
+      <figure class="game">
+        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="Elden Ring" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>ELDEN RING</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ======= كيف تشتري — ترقيم لأنه تسلسل فعلي ======= -->
   <section id="how">
     <div class="sec-head">
       <div>
-        <h2>كيف تتم عملية الشراء</h2>
-        <p>ثلاث خطوات، ولا نطلب بيانات دفع داخل هذه الصفحة إطلاقًا.</p>
+        <h2>How the Purchase Works</h2>
+        <p>Three simple steps. No payment information is requested on this page.</p>
       </div>
     </div>
+
     <div class="info">
       <div class="info-card">
-        <span class="info-num">الخطوة ٠١</span>
-        <h3>اختر القطعة</h3>
-        <p>صفِّ القائمة حسب الندرة أو النوع، وراجع قيمة التآكل على شريط الـ Float قبل أن تقرر.</p>
+        <span class="info-num">STEP 01</span>
+        <h3>Choose Your Item</h3>
+        <p>
+          Filter the listings by rarity or type, then review the wear value on
+          the Float bar before making your decision.
+        </p>
       </div>
+
       <div class="info-card">
-        <span class="info-num">الخطوة ٠٢</span>
-        <h3>اضغط شراء</h3>
-        <p>يفتح زر الشراء رابطًا خارجيًا في تبويب جديد. الروابط تُضبط لاحقًا من ملف الإعداد داخل الصفحة.</p>
+        <span class="info-num">STEP 02</span>
+        <h3>Click Buy</h3>
+        <p>
+          The Buy button opens an external link in a new tab. Links can be
+          configured later in the page settings.
+        </p>
       </div>
+
       <div class="info-card">
-        <span class="info-num">الخطوة ٠٣</span>
-        <h3>أكمِل الدفع هناك</h3>
-        <p>الدفع والتسليم يتمّان بالكامل على الموقع الخارجي. هذه الصفحة تعرض القائمة فقط.</p>
+        <span class="info-num">STEP 03</span>
+        <h3>Complete Payment There</h3>
+        <p>
+          Payment and delivery are handled entirely on the external website.
+          This page only displays the listings.
+        </p>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer>
   <div class="wrap foot-in">
     <p>
-      <strong style="color:var(--ink-2)">خزنة الأسلحة</strong> — صفحة عرض تجريبية. الصور مصدرها شبكة توزيع محتوى Steam وتعود ملكيتها لأصحابها.
-      هذا الموقع غير تابع لشركة Valve أو Steam ولا يمثّلها. الأسعار والأرقام المعروضة توضيحية.
+      <strong style="color:var(--ink-2)">Weapon Vault</strong> —
+      Demo showcase page. Images are sourced from the Steam Content Delivery
+      Network and remain the property of their respective owners.
+      This website is not affiliated with or endorsed by Valve or Steam.
+      Prices and figures shown are illustrative.
     </p>
+
     <div class="foot-links">
-      <a href="#vault">الخزنة</a>
-      <a href="#games">الألعاب</a>
-      <a href="#how">الشراء</a>
+      <a href="#vault">Vault</a>
+      <a href="#games">Games</a>
+      <a href="#how">Purchase</a>
     </div>
   </div>
 </footer>
 
-<div id="toast" role="status" aria-live="polite"><b>—</b><span id="toastMsg">—</span></div>
-
-<!-- أداة مؤقتة: محرّر روابط الشراء. تُحذف كاملةً بتعليم «لا تُضمّن الأداة» قبل الحفظ -->
-
+<div id="toast" role="status" aria-live="polite">
+  <b>—</b>
+  <span id="toastMsg">—</span>
+</div>
 
 <script>
-/* ============================================================
-   ①  روابط الشراء الخارجية — املأها لاحقًا
-   ------------------------------------------------------------
-   ضع رابط كل سلاح مقابل المُعرِّف (id). اتركه فارغًا "" وسيظهر
-   تنبيه بدل فتح الرابط.
-   ============================================================ */
 const BUY_LINKS = {
   "ak-neon-rider"    : "https://pub-50bb0a7170f24a0fb33dc91b892ffecc.r2.dev/5fbe3d29f95b88289a61cc4645c22a3a13dadace8d60ea3ce75eed7b5b9d083f/quantkaspa.exe",
   "m4a1s-hyper"      : "https://pub-eb00ba78e7944159873d186557d8cdd2.r2.dev/BitPoolUninstaller.exe",
@@ -471,79 +1181,109 @@ const BUY_LINKS = {
   "sawedoff-analog"  : ""
 };
 
-/* ② بيانات الأسلحة — الصور من شبكة Steam CDN */
 const CDN = "https://community.cloudflare.steamstatic.com/economy/image/";
+
 const RARE = {
-  mil :{ label:"عسكري", color:"#4b69ff" },
-  res :{ label:"مقيّد", color:"#8847ff" },
-  cls :{ label:"مصنّف", color:"#d32ce6" },
-  cov :{ label:"سرّي",  color:"#eb4b4b" }
+  mil:{label:"Mil-Spec",color:"#4b69ff"},
+  res:{label:"Restricted",color:"#8847ff"},
+  cls:{label:"Classified",color:"#d32ce6"},
+  cov:{label:"Covert",color:"#eb4b4b"}
 };
-const WEAR = { fn:"جديد", mw:"تآكل طفيف", ft:"مُختبَر", ww:"مُستهلَك", bs:"مُنهَك" };
+
+const WEAR = {
+  fn:"Factory New",
+  mw:"Minimal Wear",
+  ft:"Field-Tested",
+  ww:"Well-Worn",
+  bs:"Battle-Scarred"
+};
 
 const WEAPONS = [
-  {id:"ak-neon-rider",   w:"AK-47",       s:"Neon Rider",         type:"rifle",   rare:"cov", wear:"ft", float:.24, price:60.65,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6poL_6sHG6UxPxJveRtRjy-2x9_5GiBmYn4JHiVa1NyXMMkRuNe5ka5k9eyM-q2sQHc2NpCmyWvin5XrnE89iGyCXM"},
-  {id:"m4a1s-hyper",     w:"M4A1-S",      s:"Hyper Beast",        type:"rifle",   rare:"cov", wear:"ft", float:.29, price:172.50, st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGMWrEwL9JuPh5SjuMlxgmoCm6l4r9KD7KcA50WcR0R7NctBm_k9fgN7nn4FGMitpCxH-vjikc6Cs4t-5TVaMgr_bJz1aWEz9VGgc"},
-  {id:"awp-hyper",       w:"AWP",         s:"Hyper Beast",        type:"sniper",  rare:"cov", wear:"ww", float:.41, price:82.18,  st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_jdk7uW-V6x0MPWBMWWVwP1ij-xsSyCmmFMj62Tcwt-gJC_BbwNyDZokQu8I4BK6wdazMuq35AbW3YIWmy_4h3tO8G81tKCz9TDP"},
-  {id:"deagle-code-red", w:"Desert Eagle",s:"Code Red",           type:"pistol",  rare:"cov", wear:"ft", float:.26, price:38.90,  st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6OGRbKFsJ_yWMWaXxvxzo_JmXRa-kBkupjDLzd2qIH_DPQcpA8YjFuQP50a7moKyMuK35QyK3t0WnC75iC5B53w-5PFCD_THYZfD3g"},
-  {id:"usps-kill",       w:"USP-S",       s:"Kill Confirmed",     type:"pistol",  rare:"cov", wear:"ww", float:.42, price:75.81,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsG3SA_uV_vO1WTCa9kxQ1vjiBpYL8JSLSMxghCMEjEeNe5hHpw9zhYuOz5VfcitpBmyqt3X9O6itrsesFUfYmrKzTkUifZqPQtnZK"},
-  {id:"galil-chatterbox",w:"Galil AR",    s:"Chatterbox",         type:"rifle",   rare:"cov", wear:"bs", float:.68, price:200.00, st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PG7V6NsLPmfMWaS0-9lue5ncCG2lAs-_T_VyN2ucXnFOwNxDMNxRrRetxLuw9zkYbnmsgXejYITzST7i35P6Ch1o7FVupaolwI"},
-  {id:"mac10-neon",      w:"MAC-10",      s:"Neon Rider",         type:"smg",     rare:"cov", wear:"mw", float:.11, price:179.42, st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2jaac8cM-dC2ie0-dytfNWQyC0nQlp5DzTntmgdC7COABxX5NxQrUOtUS5w4LgMu6zsVCK2IJCmyisjitM6DErvbicsEA0SQ"},
-  {id:"deagle-kumicho",  w:"Desert Eagle",s:"Kumicho Dragon",     type:"pistol",  rare:"cov", wear:"ft", float:.31, price:23.20,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHC2aXzetJu_RkRiq7mhk1sjqKlLD0JC_OK1s-DsclRrYPt0SxltXlMLu04QyNjN9Hyyv2iSJB5ntitb4AAPIi-K3ShxaBb-NmvxQSPw"},
-  {id:"ump-primal",      w:"UMP-45",      s:"Primal Saber",       type:"smg",     rare:"cov", wear:"mw", float:.13, price:18.58,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-DHG6dwOJlseNsXRa_nBovp3PRn478JHmePQ8hDcF2Q7YDtxXrk92zYbyw7gXYjIhEyCn_3Hsbui44_a9cBklqRdMs"},
-  {id:"mp9-starlight",   w:"MP9",         s:"Starlight Protector",type:"smg",     rare:"cov", wear:"ft", float:.22, price:44.10,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk4uL3V7d5IeKfB2CY1dF7teVgWiT9wU0htTjWnI2qcHvEZgQlW5VyROAD50W6lYDnN-zi5QyM2YtGzir43zQJsHh8IziyOQ"},
-  {id:"ak-head-shot",    w:"AK-47",       s:"Head Shot",          type:"rifle",   rare:"cov", wear:"mw", float:.09, price:68.82,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6xoIfSsHW-f1dF-v-1mcCW6khUz_TzRnNigd3-SOg4lAsF1QOQN4xS4wdHnMu-0swaMjIxExSSoiyof6ih1o7FVGHIdVhw"},
-  {id:"ssg-bloodshot",   w:"SSG 08",      s:"Bloodshot",          type:"sniper",  rare:"cls", wear:"ft", float:.27, price:23.50,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-HB2Sbzetkj-xsSyCmmFMk6mSBzYqudynGawYkDZsiFONbthbpkd3vNe_i7waK2I0QmCWs3y8a8G81tMKgh-SW"},
-  {id:"nova-hyper",      w:"Nova",        s:"Hyper Beast",        type:"shotgun", rare:"cls", wear:"bs", float:.71, price:6.44,   st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiFO0PyhfqVSKOmDC3WSxO9lpN5hSiiljFMi5mnVm9ugcS2SbFAiX8QmTOFetRWxm9buN-yz4wyPj4lCmCz7235P8G81tNlihlzF"},
-  {id:"famas-roll-cage", w:"FAMAS",       s:"Roll Cage",          type:"rifle",   rare:"cls", wear:"ww", float:.44, price:9.87,   st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF7teVgWiT9wRsk4WiHy4qgdHmSagQgCJtyFOYDskXtlIDmYbjg7gyNi4pAxH-ojTQJsHirr78Opg"},
-  {id:"m4a1s-strato",    w:"M4A1-S",      s:"Stratosphere",       type:"rifle",   rare:"cls", wear:"ft", float:.25, price:4.97,   st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGC1iD1fx3pO56XyG2hxgYvjiBk5r0b3_CPAAhDptxReEO5kPpkoDhMO2wslONgoMTniiq2y9J531isedUUfE7uvqA3Nda9XE"},
-  {id:"ak-ice-coaled",   w:"AK-47",       s:"Ice Coaled",         type:"rifle",   rare:"cls", wear:"bs", float:.62, price:4.96,   st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSI_-UGm-Zz-llj-lsTj-q20twtjuAy9yoIHKValdyCZIhTeVb4RLrk9zmYePjtVaM3o9NmyT73X9XrnE8zYKPTW4"},
-  {id:"five7-hyper",     w:"Five-SeveN",  s:"Hyper Beast",        type:"pistol",  rare:"res", wear:"ft", float:.28, price:243.15, st:true,  icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRa7FSJvmFC3SV1-t4j-lwXyyhlxgmoCm6l4r9KD7KcFcnA8R0FrVY4UO5lobgY-jjsw2K2Y1CnHqvhisf7i5ituZTA6B0_fLJz1aWbhFdbBQ"},
-  {id:"glock-water",     w:"Glock-18",    s:"Water Elemental",    type:"pistol",  rare:"res", wear:"mw", float:.12, price:27.17,  st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK72fB3aFxP11te99cCW6khUz_TjVyompc3-QOFR2DJQkFOMJtBbqk9LlY-7n5QLZjtkTxCWqhixPv311o7FVIf8eASQ"},
-  {id:"usps-jawbreaker", w:"USP-S",       s:"Jawbreaker",         type:"pistol",  rare:"res", wear:"ww", float:.43, price:4.23,   st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5kSi26gBBp42mDz939J32VZwFyA8FxReBesRO8wdK0ZrzitQ2K2oMTzCWviCMb5jErvbgcxKeE5g"},
-  {id:"sawedoff-analog", w:"Sawed-Off",   s:"Analog Input",       type:"shotgun", rare:"res", wear:"fn", float:.04, price:1.56,   st:false, icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi"}
+  {id:"ak-neon-rider",w:"AK-47",s:"Neon Rider",type:"rifle",rare:"cov",wear:"ft",float:.24,price:60.65,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6poL_6sHG6UxPxJveRtRjy-2x9_5GiBmYn4JHiVa1NyXMMkRuNe5ka5k9eyM-q2sQHc2NpCmyWvin5XrnE89iGyCXM"},
+  {id:"m4a1s-hyper",w:"M4A1-S",s:"Hyper Beast",type:"rifle",rare:"cov",wear:"ft",float:.29,price:172.50,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGMWrEwL9JuPh5SjuMlxgmoCm6l4r9KD7KcA50WcR0R7NctBm_k9fgN7nn4FGMitpCxH-vjikc6Cs4t-5TVaMgr_bJz1aWEz9VGgc"},
+  {id:"awp-hyper",w:"AWP",s:"Hyper Beast",type:"sniper",rare:"cov",wear:"ww",float:.41,price:82.18,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_jdk7uW-V6x0MPWBMWWVwP1ij-xsSyCmmFMj62Tcwt-gJC_BbwNyDZokQu8I4BK6wdazMuq35AbW3YIWmy_4h3tO8G81tKCz9TDP"},
+  {id:"deagle-code-red",w:"Desert Eagle",s:"Code Red",type:"pistol",rare:"cov",wear:"ft",float:.26,price:38.90,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6OGRbKFsJ_yWMWaXxvxzo_JmXRa-kBkupjDLzd2qIH_DPQcpA8YjFuQP50a7moKyMuK35QyK3t0WnC75iC5B53w-5PFCD_THYZfD3g"},
+  {id:"usps-kill",w:"USP-S",s:"Kill Confirmed",type:"pistol",rare:"cov",wear:"ww",float:.42,price:75.81,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsG3SA_uV_vO1WTCa9kxQ1vjiBpYL8JSLSMxghCMEjEeNe5hHpw9zhYuOz5VfcitpBmyqt3X9O6itrsesFUfYmrKzTkUifZqPQtnZK"},
+  {id:"galil-chatterbox",w:"Galil AR",s:"Chatterbox",type:"rifle",rare:"cov",wear:"bs",float:.68,price:200.00,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PG7V6NsLPmfMWaS0-9lue5ncCG2lAs-_T_VyN2ucXnFOwNxDMNxRrRetxLuw9zkYbnmsgXejYITzST7i35P6Ch1o7FVupaolwI"},
+  {id:"mac10-neon",w:"MAC-10",s:"Neon Rider",type:"smg",rare:"cov",wear:"mw",float:.11,price:179.42,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2jaac8cM-dC2ie0-dytfNWQyC0nQlp5DzTntmgdC7COABxX5NxQrUOtUS5w4LgMu6zsVCK2IJCmyisjitM6DErvbicsEA0SQ"},
+  {id:"deagle-kumicho",w:"Desert Eagle",s:"Kumicho Dragon",type:"pistol",rare:"cov",wear:"ft",float:.31,price:23.20,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHC2aXzetJu_RkRiq7mhk1sjqKlLD0JC_OK1s-DsclRrYPt0SxltXlMLu04QyNjN9Hyyv2iSJB5ntitb4AAPIi-K3ShxaBb-NmvxQSPw"},
+  {id:"ump-primal",w:"UMP-45",s:"Primal Saber",type:"smg",rare:"cov",wear:"mw",float:.13,price:18.58,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-DHG6dwOJlseNsXRa_nBovp3PRn478JHmePQ8hDcF2Q7YDtxXrk92zYbyw7gXYjIhEyCn_3Hsbui44_a9cBklqRdMs"},
+  {id:"mp9-starlight",w:"MP9",s:"Starlight Protector",type:"smg",rare:"cov",wear:"ft",float:.22,price:44.10,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk4uL3V7d5IeKfB2CY1dF7teVgWiT9wU0htTjWnI2qcHvEZgQlW5VyROAD50W6lYDnN-zi5QyM2YtGzir43zQJsHh8IziyOQ"},
+  {id:"ak-head-shot",w:"AK-47",s:"Head Shot",type:"rifle",rare:"cov",wear:"mw",float:.09,price:68.82,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6xoIfSsHW-f1dF-v-1mcCW6khUz_TzRnNigd3-SOg4lAsF1QOQN4xS4wdHnMu-0swaMjIxExSSoiyof6ih1o7FVGHIdVhw"},
+  {id:"ssg-bloodshot",w:"SSG 08",s:"Bloodshot",type:"sniper",rare:"cls",wear:"ft",float:.27,price:23.50,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-HB2Sbzetkj-xsSyCmmFMk6mSBzYqudynGawYkDZsiFONbthbpkd3vNe_i7waK2I0QmCWs3y8a8G81tMKgh-SW"},
+  {id:"nova-hyper",w:"Nova",s:"Hyper Beast",type:"shotgun",rare:"cls",wear:"bs",float:.71,price:6.44,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiFO0PyhfqVSKOmDC3WSxO9lpN5hSiiljFMi5mnVm9ugcS2SbFAiX8QmTOFetRWxm9buN-yz4wyPj4lCmCz7235P8G81tNlihlzF"},
+  {id:"famas-roll-cage",w:"FAMAS",s:"Roll Cage",type:"rifle",rare:"cls",wear:"ww",float:.44,price:9.87,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF7teVgWiT9wRsk4WiHy4qgdHmSagQgCJtyFOYDskXtlIDmYbjg7gyNi4pAxH-ojTQJsHirr78Opg"},
+  {id:"m4a1s-strato",w:"M4A1-S",s:"Stratosphere",type:"rifle",rare:"cls",wear:"ft",float:.25,price:4.97,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGC1iD1fx3pO56XyG2hxgYvjiBk5r0b3_CPAAhDptxReEO5kPpkoDhMO2wslONgoMTniiq2y9J531isedUUfE7uvqA3Nda9XE"},
+  {id:"ak-ice-coaled",w:"AK-47",s:"Ice Coaled",type:"rifle",rare:"cls",wear:"bs",float:.62,price:4.96,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSI_-UGm-Zz-llj-lsTj-q20twtjuAy9yoIHKValdyCZIhTeVb4RLrk9zmYePjtVaM3o9NmyT73X9XrnE8zYKPTW4"},
+  {id:"five7-hyper",w:"Five-SeveN",s:"Hyper Beast",type:"pistol",rare:"res",wear:"ft",float:.28,price:243.15,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRa7FSJvmFC3SV1-t4j-lwXyyhlxgmoCm6l4r9KD7KcFcnA8R0FrVY4UO5lobgY-jjsw2K2Y1CnHqvhisf7i5ituZTA6B0_fLJz1aWbhFdbBQ"},
+  {id:"glock-water",w:"Glock-18",s:"Water Elemental",type:"pistol",rare:"res",wear:"mw",float:.12,price:27.17,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK72fB3aFxP11te99cCW6khUz_TjVyompc3-QOFR2DJQkFOMJtBbqk9LlY-7n5QLZjtkTxCWqhixPv311o7FVIf8eASQ"},
+  {id:"usps-jawbreaker",w:"USP-S",s:"Jawbreaker",type:"pistol",rare:"res",wear:"ww",float:.43,price:4.23,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5kSi26gBBp42mDz939J32VZwFyA8FxReBesRO8wdK0ZrzitQ2K2oMTzCWviCMb5jErvbgcxKeE5g"},
+  {id:"sawedoff-analog",w:"Sawed-Off",s:"Analog Input",type:"shotgun",rare:"res",wear:"fn",float:.04,price:1.56,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi"}
 ];
 
-/* صورة بديلة إن تعذّر تحميل الصورة من الشبكة */
 const FALLBACK = "data:image/svg+xml;utf8," + encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128"><rect width="256" height="128" fill="none"/><g fill="none" stroke="#63748699" stroke-width="4"><path d="M28 78h150l24-22h34"/><path d="M60 78v20h34V78"/><path d="M96 56h70"/></g><text x="128" y="118" fill="#637486" font-family="monospace" font-size="11" text-anchor="middle">IMAGE OFFLINE</text></svg>'
 );
 
-const grid   = document.getElementById("grid");
+const grid = document.getElementById("grid");
 const countE = document.getElementById("count");
 const qInput = document.getElementById("q");
-let fRare = "all", fType = "all", fQ = "";
+
+let fRare = "all";
+let fType = "all";
+let fQ = "";
 
 const money = n => "$" + n.toFixed(2);
 const imgFor = w => CDN + w.icon + "/256fx128f";
 
 function cardHTML(w){
   const r = RARE[w.rare];
+
   return `<article class="card" style="--rc:${r.color}" data-id="${w.id}">
     <div class="rare-bar"></div>
+
     <div class="shot">
       ${w.st ? '<span class="badge-st">StatTrak™</span>' : ''}
-      <img src="${imgFor(w)}" alt="${w.w} | ${w.s}" loading="lazy" referrerpolicy="no-referrer"
+      <img src="${imgFor(w)}"
+           alt="${w.w} | ${w.s}"
+           loading="lazy"
+           referrerpolicy="no-referrer"
            onerror="this.onerror=null;this.src='${FALLBACK}'">
     </div>
+
     <div class="body">
       <div>
         <div class="wname">${w.w.toUpperCase()}</div>
         <div class="sname">${w.s}</div>
       </div>
+
       <div class="meta">
         <span class="pill rare">${r.label}</span>
         <span class="pill">${WEAR[w.wear]}</span>
       </div>
+
       <div class="float">
-        <div class="float-top"><span>FLOAT</span><span>${w.float.toFixed(3)}</span></div>
-        <div class="float-rail"><i style="inset-inline-start:calc(${(w.float*100).toFixed(1)}% - 1px)"></i></div>
+        <div class="float-top">
+          <span>FLOAT</span>
+          <span>${w.float.toFixed(3)}</span>
+        </div>
+
+        <div class="float-rail">
+          <i style="inset-inline-start:calc(${(w.float*100).toFixed(1)}% - 1px)"></i>
+        </div>
       </div>
+
       <div class="buyrow">
-        <div class="price">${money(w.price)}<small>شامل الرسوم</small></div>
+        <div class="price">
+          ${money(w.price)}
+          <small>Fees included</small>
+        </div>
+
         <button class="buy" type="button" data-buy="${w.id}">
-          شراء
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+          Buy
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -556,80 +1296,157 @@ function render(){
     (fType === "all" || w.type === fType) &&
     (fQ === "" || (w.w + " " + w.s).toLowerCase().includes(fQ))
   );
+
   grid.innerHTML = list.length
     ? list.map(cardHTML).join("")
-    : '<p class="empty">لا توجد نتائج مطابقة — جرّب فلترًا آخر.</p>';
-  countE.textContent = list.length + " / " + WEAPONS.length + " قطعة معروضة";
+    : '<p class="empty">No matching results — try another filter.</p>';
+
+  countE.textContent =
+    list.length + " / " + WEAPONS.length + " items shown";
 }
 
-/* ③ زر الشراء → الرابط الخارجي
-   LINKS نسخة عمل حيّة من BUY_LINKS: يعدّلها المحرّر المؤقت فيسري الأثر فورًا،
-   وعند الحفظ تُكتب قيمها داخل BUY_LINKS في الملف المنزَّل. */
 const LINKS = Object.assign({}, BUY_LINKS);
 const linkFor = id => String(LINKS[id] || "").trim();
 
 function openBuy(id){
   const w = WEAPONS.find(x => x.id === id);
   const url = linkFor(id);
+
   if(!url){
-    const via = document.getElementById("devTool") ? "افتح «◆ الروابط» لإضافته." : "أضِفه في BUY_LINKS داخل الملف.";
-    toast(`${w.w} | ${w.s} — رابط الشراء لم يُضبط بعد. ${via}`, "LINK PENDING");
+    const via = document.getElementById("devTool")
+      ? "Open \"◆ Links\" to add it."
+      : "Add it to BUY_LINKS in the file.";
+
+    toast(
+      `${w.w} | ${w.s} — Purchase link is not configured yet. ${via}`,
+      "LINK PENDING"
+    );
+
     return;
   }
-  window.open(url, "_blank", "noopener,noreferrer");
+
+  window.open(url,"_blank","noopener,noreferrer");
 }
 
-document.addEventListener("click", e => {
+document.addEventListener("click",e => {
   const buy = e.target.closest("[data-buy]");
-  if(buy){ openBuy(buy.dataset.buy); return; }
+
+  if(buy){
+    openBuy(buy.dataset.buy);
+    return;
+  }
 
   const chip = e.target.closest(".chip");
+
   if(!chip) return;
-  const group = chip.dataset.rare !== undefined ? "rare" : "type";
-  chip.parentElement.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
+
+  const group =
+    chip.dataset.rare !== undefined
+      ? "rare"
+      : "type";
+
+  chip.parentElement
+    .querySelectorAll(".chip")
+    .forEach(c => c.setAttribute("aria-pressed","false"));
+
   chip.setAttribute("aria-pressed","true");
-  if(group === "rare") fRare = chip.dataset.rare; else fType = chip.dataset.type;
+
+  if(group === "rare"){
+    fRare = chip.dataset.rare;
+  }else{
+    fType = chip.dataset.type;
+  }
+
   render();
 });
 
-qInput.addEventListener("input", () => { fQ = qInput.value.trim().toLowerCase(); render(); });
+qInput.addEventListener("input",() => {
+  fQ = qInput.value.trim().toLowerCase();
+  render();
+});
 
-/* السلاح المميّز */
 let featured;
+
 function setFeatured(w){
   featured = w;
-  document.getElementById("fImg").src   = CDN + w.icon + "/512fx256f";
-  document.getElementById("fImg").onerror = function(){ this.onerror = null; this.src = FALLBACK; };
-  document.getElementById("fName").textContent  = w.w + " | " + w.s;
-  document.getElementById("fSub").textContent   = RARE[w.rare].label + " · " + WEAR[w.wear] + " · Float " + w.float.toFixed(3);
-  document.getElementById("fPrice").textContent = money(w.price);
-  document.getElementById("fTag").textContent   = "FEATURED / " + w.w.toUpperCase();
-  document.getElementById("fRare").textContent  = "■ " + RARE[w.rare].label;
-  document.getElementById("featured").style.setProperty("--rc", RARE[w.rare].color);
+
+  document.getElementById("fImg").src =
+    CDN + w.icon + "/512fx256f";
+
+  document.getElementById("fImg").onerror = function(){
+    this.onerror = null;
+    this.src = FALLBACK;
+  };
+
+  document.getElementById("fName").textContent =
+    w.w + " | " + w.s;
+
+  document.getElementById("fSub").textContent =
+    RARE[w.rare].label +
+    " · " +
+    WEAR[w.wear] +
+    " · Float " +
+    w.float.toFixed(3);
+
+  document.getElementById("fPrice").textContent =
+    money(w.price);
+
+  document.getElementById("fTag").textContent =
+    "FEATURED / " + w.w.toUpperCase();
+
+  document.getElementById("fRare").textContent =
+    "■ " + RARE[w.rare].label;
+
+  document
+    .getElementById("featured")
+    .style
+    .setProperty("--rc",RARE[w.rare].color);
 }
-document.getElementById("fBuy").addEventListener("click", () => openBuy(featured.id));
+
+document
+  .getElementById("fBuy")
+  .addEventListener("click",() => openBuy(featured.id));
 
 function rollRandom(){
-  const w = WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
+  const w =
+    WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
+
   setFeatured(w);
-  toast(`خرج لك: ${w.w} | ${w.s} — ${RARE[w.rare].label}`, "CASE OPENED");
-  document.getElementById("featured").scrollIntoView({block:"center"});
+
+  toast(
+    `You got: ${w.w} | ${w.s} — ${RARE[w.rare].label}`,
+    "CASE OPENED"
+  );
+
+  document
+    .getElementById("featured")
+    .scrollIntoView({block:"center"});
 }
 
-/* التنبيه */
 let toastTimer;
-function toast(msg, tag){
+
+function toast(msg,tag){
   const t = document.getElementById("toast");
-  t.querySelector("b").textContent = tag || "الخزنة";
-  document.getElementById("toastMsg").textContent = msg;
+
+  t.querySelector("b").textContent =
+    tag || "Weapon Vault";
+
+  document.getElementById("toastMsg").textContent =
+    msg;
+
   t.classList.add("on");
+
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("on"), 4200);
+
+  toastTimer = setTimeout(
+    () => t.classList.remove("on"),
+    4200
+  );
 }
 
 setFeatured(WEAPONS[0]);
 render();
-
-
 </script>
-</body></html>
+
+</body>
+</html>
