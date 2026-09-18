@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Weapon Vault</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
@@ -36,7 +37,9 @@
   --r-md:6px;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
@@ -53,9 +56,9 @@ body{
   text-align:left;
   overflow-x:hidden;
   background-image:
-    radial-gradient(900px 460px at 78% -8%, #1b2a3a 0%, transparent 62%),
-    radial-gradient(700px 400px at 8% 4%, #1d1a26 0%, transparent 60%),
-    repeating-linear-gradient(0deg, transparent 0 3px, #ffffff05 3px 4px);
+    radial-gradient(900px 460px at 78% -8%,#1b2a3a 0%,transparent 62%),
+    radial-gradient(700px 400px at 8% 4%,#1d1a26 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent 0 3px,#ffffff05 3px 4px);
   background-attachment:fixed;
 }
 
@@ -193,8 +196,13 @@ button{
 }
 
 @keyframes slide{
-  from{transform:translateX(-50%)}
-  to{transform:translateX(0)}
+  from{
+    transform:translateX(-50%);
+  }
+
+  to{
+    transform:translateX(0);
+  }
 }
 
 .hero{
@@ -265,7 +273,10 @@ h1 em{
   padding:12px 24px;
   border-radius:var(--r-sm);
   border:1px solid transparent;
-  transition:transform .12s ease,box-shadow .2s ease,background .2s ease;
+  transition:
+    transform .12s ease,
+    box-shadow .2s ease,
+    background .2s ease;
 }
 
 .btn-main{
@@ -304,7 +315,11 @@ h1 em{
   inset:0;
   background:
     repeating-linear-gradient(135deg,#ffffff06 0 12px,transparent 12px 34px),
-    radial-gradient(70% 60% at 50% 42%,color-mix(in srgb,var(--rc,#eb4b4b) 22%,transparent),transparent 70%);
+    radial-gradient(
+      70% 60% at 50% 42%,
+      color-mix(in srgb,var(--rc,#eb4b4b) 22%,transparent),
+      transparent 70%
+    );
   pointer-events:none;
 }
 
@@ -336,7 +351,9 @@ h1 em{
 }
 
 @keyframes float{
-  50%{transform:translateY(-9px)}
+  50%{
+    transform:translateY(-9px);
+  }
 }
 
 .featured-foot{
@@ -533,7 +550,12 @@ h2{
   display:grid;
   place-items:center;
   padding:8px;
-  background:radial-gradient(60% 70% at 50% 62%,color-mix(in srgb,var(--rc) 26%,transparent),transparent 72%);
+  background:
+    radial-gradient(
+      60% 70% at 50% 62%,
+      color-mix(in srgb,var(--rc) 26%,transparent),
+      transparent 72%
+    );
 }
 
 .card .shot img{
@@ -807,6 +829,11 @@ section{
   padding-bottom:56px;
 }
 
+
+/* =========================
+   TOAST
+   ========================= */
+
 #toast{
   position:fixed;
   bottom:22px;
@@ -834,6 +861,158 @@ section{
   font-size:12.5px;
   display:block;
 }
+
+
+/* =========================
+   PASSWORD MODAL
+   ========================= */
+
+#passwordModal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:#0009;
+  backdrop-filter:blur(5px);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease;
+}
+
+#passwordModal.on{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.modal-box{
+  width:min(420px,100%);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  box-shadow:0 24px 70px #000b;
+
+  transform:translateY(10px) scale(.98);
+
+  transition:
+    transform .2s ease;
+}
+
+#passwordModal.on .modal-box{
+  transform:translateY(0) scale(1);
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:13px 16px;
+  border-bottom:1px solid var(--line-soft);
+
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:1.5px;
+  color:var(--amber);
+}
+
+.modal-close{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+
+  border:1px solid transparent;
+  border-radius:var(--r-sm);
+  background:transparent;
+
+  color:var(--ink-2);
+  font-size:21px;
+  line-height:1;
+
+  cursor:pointer;
+
+  transition:.15s;
+}
+
+.modal-close:hover{
+  color:var(--amber);
+  border-color:var(--amber-dim);
+  background:#e0a03a0d;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.modal-body h3{
+  margin:0 0 5px;
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:20px;
+  line-height:1.3;
+}
+
+.modal-body p{
+  margin:0 0 17px;
+  color:var(--ink-2);
+  font-size:13px;
+  line-height:1.6;
+}
+
+#passwordInput{
+  width:100%;
+  padding:11px 13px;
+
+  background:var(--ground-2);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+
+  color:var(--ink);
+
+  font-family:var(--f-mono);
+  font-size:14px;
+
+  outline:none;
+
+  transition:border-color .15s,box-shadow .15s;
+}
+
+#passwordInput::placeholder{
+  color:var(--ink-3);
+}
+
+#passwordInput:focus{
+  border-color:var(--amber-dim);
+  box-shadow:0 0 0 2px #e0a03a12;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:17px;
+}
+
+.modal-actions .btn{
+  padding:9px 17px;
+  font-size:13.5px;
+}
+
+.modal-actions .buy{
+  padding:9px 17px;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
 
 @media (max-width:900px){
   .hero{
@@ -873,11 +1052,23 @@ section{
 
 <header class="topbar">
   <div class="wrap topbar-in">
+
     <div class="brand">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 1.6 21.4 6v6.4c0 5.2-3.8 8.9-9.4 10-5.6-1.1-9.4-4.8-9.4-10V6L12 1.6Z" stroke="#e0a03a" stroke-width="1.6"></path>
-        <path d="M7.6 12.2h8.8M12 7.8v8.8" stroke="#e0a03a" stroke-width="1.6" stroke-linecap="square"></path>
+        <path
+          d="M12 1.6 21.4 6v6.4c0 5.2-3.8 8.9-9.4 10-5.6-1.1-9.4-4.8-9.4-10V6L12 1.6Z"
+          stroke="#e0a03a"
+          stroke-width="1.6">
+        </path>
+
+        <path
+          d="M7.6 12.2h8.8M12 7.8v8.8"
+          stroke="#e0a03a"
+          stroke-width="1.6"
+          stroke-linecap="square">
+        </path>
       </svg>
+
       Weapon <span>Vault</span>
     </div>
 
@@ -888,26 +1079,39 @@ section{
     </nav>
 
     <div class="topbar-end">
+
       <span class="balance">$0.00</span>
 
       <button
         class="icon-btn"
         type="button"
         aria-label="Cart"
-        onclick="toast('Your cart is empty','CART / 0 ITEMS')"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        onclick="toast('Your cart is empty','CART / 0 ITEMS')">
+
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8">
+
           <circle cx="9" cy="20" r="1.4"></circle>
           <circle cx="18" cy="20" r="1.4"></circle>
           <path d="M2 3h3l2.6 12.4h11L21 7H6"></path>
         </svg>
+
       </button>
+
     </div>
+
   </div>
 </header>
 
+
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
+
     <span>Market Open <b>●</b></span>
     <span>AK-47 | Head Shot <b>▲ 4.2%</b></span>
     <span>M4A1-S | Hyper Beast <i>▼ 1.8%</i></span>
@@ -921,19 +1125,26 @@ section{
     <span>Last Sale: <b>$243.15</b></span>
     <span>Average Delivery <b>3m 12s</b></span>
     <span>2,481 Active Listings</span>
+
   </div>
 </div>
+
 
 <main class="wrap">
 
   <div class="hero">
+
     <div>
+
       <span class="eyebrow">
         <span class="dot"></span>
         Servers Connected — Instant Delivery
       </span>
 
-      <h1>Open the Vault. <em>Choose Your Weapon.</em></h1>
+      <h1>
+        Open the Vault.
+        <em>Choose Your Weapon.</em>
+      </h1>
 
       <p class="lede">
         A curated selection of weapon skins sorted by rarity and wear level.
@@ -941,224 +1152,685 @@ section{
       </p>
 
       <div class="hero-cta">
-        <a class="btn btn-main" href="#vault">Browse the Vault</a>
 
-        <button class="btn btn-ghost" type="button" onclick="rollRandom()">
+        <a class="btn btn-main" href="#vault">
+          Browse the Vault
+        </a>
+
+        <button
+          class="btn btn-ghost"
+          type="button"
+          onclick="rollRandom()">
+
           Open a Random Case
+
         </button>
+
       </div>
+
     </div>
+
 
     <figure class="featured" id="featured">
+
       <div class="featured-head">
-        <span class="featured-tag" id="fTag">FEATURED / AK-47</span>
-        <span class="featured-tag" id="fRare" style="color:var(--rc,#eb4b4b)">■ Classified</span>
+
+        <span class="featured-tag" id="fTag">
+          FEATURED / AK-47
+        </span>
+
+        <span
+          class="featured-tag"
+          id="fRare"
+          style="color:var(--rc,#eb4b4b)">
+
+          ■ Classified
+
+        </span>
+
       </div>
 
-      <img class="featured-img" id="fImg" alt="Featured weapon">
+
+      <img
+        class="featured-img"
+        id="fImg"
+        alt="Featured weapon">
+
 
       <figcaption class="featured-foot">
+
         <div>
-          <div class="featured-name" id="fName">AK-47 | Neon Rider</div>
-          <div class="featured-sub" id="fSub">Classified · Field-Tested · Float 0.240</div>
+
+          <div
+            class="featured-name"
+            id="fName">
+
+            AK-47 | Neon Rider
+
+          </div>
+
+          <div
+            class="featured-sub"
+            id="fSub">
+
+            Classified · Field-Tested · Float 0.240
+
+          </div>
+
         </div>
+
 
         <div style="text-align:right">
-          <div class="featured-price" id="fPrice">$60.65</div>
-          <button class="buy" type="button" id="fBuy" style="margin-top:6px">
+
+          <div
+            class="featured-price"
+            id="fPrice">
+
+            $60.65
+
+          </div>
+
+          <button
+            class="buy"
+            type="button"
+            id="fBuy"
+            style="margin-top:6px">
+
             Buy Now
+
           </button>
+
         </div>
+
       </figcaption>
+
     </figure>
+
   </div>
+
 
   <div class="stats">
-    <div class="stat"><b>20</b><span>Items in Stock</span></div>
-    <div class="stat"><b>4</b><span>Rarity Levels</span></div>
-    <div class="stat"><b>99.4%</b><span>Successful Orders</span></div>
-    <div class="stat"><b>24/7</b><span>Customer Support</span></div>
+
+    <div class="stat">
+      <b>20</b>
+      <span>Items in Stock</span>
+    </div>
+
+    <div class="stat">
+      <b>4</b>
+      <span>Rarity Levels</span>
+    </div>
+
+    <div class="stat">
+      <b>99.4%</b>
+      <span>Successful Orders</span>
+    </div>
+
+    <div class="stat">
+      <b>24/7</b>
+      <span>Customer Support</span>
+    </div>
+
   </div>
 
+
   <section id="vault">
+
     <div class="sec-head">
+
       <div>
+
         <h2>Weapon Listings</h2>
-        <p>Prices are in USD. Each card displays the actual wear value (Float).</p>
+
+        <p>
+          Prices are in USD. Each card displays the actual wear value (Float).
+        </p>
+
       </div>
 
-      <span class="hint" id="count">20 / 20 items shown</span>
+      <span
+        class="hint"
+        id="count">
+
+        20 / 20 items shown
+
+      </span>
+
     </div>
+
 
     <div class="filters">
 
       <div class="frow">
-        <span class="flabel">RARITY</span>
 
-        <button class="chip" data-rare="all" aria-pressed="true">All</button>
+        <span class="flabel">
+          RARITY
+        </span>
 
-        <button class="chip" data-rare="cov" aria-pressed="false">
-          <span class="sw" style="background:#eb4b4b"></span>
+        <button
+          class="chip"
+          data-rare="all"
+          aria-pressed="true">
+
+          All
+
+        </button>
+
+
+        <button
+          class="chip"
+          data-rare="cov"
+          aria-pressed="false">
+
+          <span
+            class="sw"
+            style="background:#eb4b4b">
+          </span>
+
           Covert
+
         </button>
 
-        <button class="chip" data-rare="cls" aria-pressed="false">
-          <span class="sw" style="background:#d32ce6"></span>
+
+        <button
+          class="chip"
+          data-rare="cls"
+          aria-pressed="false">
+
+          <span
+            class="sw"
+            style="background:#d32ce6">
+          </span>
+
           Classified
+
         </button>
 
-        <button class="chip" data-rare="res" aria-pressed="false">
-          <span class="sw" style="background:#8847ff"></span>
+
+        <button
+          class="chip"
+          data-rare="res"
+          aria-pressed="false">
+
+          <span
+            class="sw"
+            style="background:#8847ff">
+          </span>
+
           Restricted
+
         </button>
 
-        <button class="chip" data-rare="mil" aria-pressed="false">
-          <span class="sw" style="background:#4b69ff"></span>
+
+        <button
+          class="chip"
+          data-rare="mil"
+          aria-pressed="false">
+
+          <span
+            class="sw"
+            style="background:#4b69ff">
+          </span>
+
           Mil-Spec
+
         </button>
+
       </div>
 
-      <div class="frow">
-        <span class="flabel">TYPE</span>
 
-        <button class="chip" data-type="all" aria-pressed="true">All</button>
-        <button class="chip" data-type="rifle" aria-pressed="false">Rifles</button>
-        <button class="chip" data-type="sniper" aria-pressed="false">Snipers</button>
-        <button class="chip" data-type="pistol" aria-pressed="false">Pistols</button>
-        <button class="chip" data-type="smg" aria-pressed="false">SMGs</button>
-        <button class="chip" data-type="shotgun" aria-pressed="false">Shotguns</button>
+      <div class="frow">
+
+        <span class="flabel">
+          TYPE
+        </span>
+
+        <button
+          class="chip"
+          data-type="all"
+          aria-pressed="true">
+
+          All
+
+        </button>
+
+        <button
+          class="chip"
+          data-type="rifle"
+          aria-pressed="false">
+
+          Rifles
+
+        </button>
+
+        <button
+          class="chip"
+          data-type="sniper"
+          aria-pressed="false">
+
+          Snipers
+
+        </button>
+
+        <button
+          class="chip"
+          data-type="pistol"
+          aria-pressed="false">
+
+          Pistols
+
+        </button>
+
+        <button
+          class="chip"
+          data-type="smg"
+          aria-pressed="false">
+
+          SMGs
+
+        </button>
+
+        <button
+          class="chip"
+          data-type="shotgun"
+          aria-pressed="false">
+
+          Shotguns
+
+        </button>
+
 
         <input
           class="search"
           id="q"
           type="search"
           placeholder="Search weapon or skin..."
-          aria-label="Search"
-        >
+          aria-label="Search">
+
       </div>
+
     </div>
 
-    <div class="grid" id="grid"></div>
+
+    <div
+      class="grid"
+      id="grid">
+    </div>
+
   </section>
+
 
   <section id="games">
+
     <div class="sec-head">
+
       <div>
+
         <h2>Supported Games</h2>
-        <p>Game accounts and items for some of the store's most popular titles.</p>
+
+        <p>
+          Game accounts and items for some of the store's most popular titles.
+        </p>
+
       </div>
 
-      <span class="hint">STEAM STOREFRONT ARTWORK</span>
+      <span class="hint">
+        STEAM STOREFRONT ARTWORK
+      </span>
+
     </div>
+
 
     <div class="games">
-      <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg" alt="Counter-Strike 2" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>COUNTER-STRIKE 2</figcaption>
-      </figure>
 
       <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg" alt="Dota 2" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>DOTA 2</figcaption>
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg"
+          alt="Counter-Strike 2"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          COUNTER-STRIKE 2
+        </figcaption>
+
       </figure>
 
-      <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg" alt="Apex Legends" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>APEX LEGENDS</figcaption>
-      </figure>
 
       <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg" alt="PUBG" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>PUBG: BATTLEGROUNDS</figcaption>
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg"
+          alt="Dota 2"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          DOTA 2
+        </figcaption>
+
       </figure>
 
-      <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/252490/header.jpg" alt="Rust" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>RUST</figcaption>
-      </figure>
 
       <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg" alt="Rainbow Six Siege" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>RAINBOW SIX SIEGE</figcaption>
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg"
+          alt="Apex Legends"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          APEX LEGENDS
+        </figcaption>
+
       </figure>
 
-      <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg" alt="GTA V" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>GRAND THEFT AUTO V</figcaption>
-      </figure>
 
       <figure class="game">
-        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="Elden Ring" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>ELDEN RING</figcaption>
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg"
+          alt="PUBG"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          PUBG: BATTLEGROUNDS
+        </figcaption>
+
       </figure>
+
+
+      <figure class="game">
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/252490/header.jpg"
+          alt="Rust"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          RUST
+        </figcaption>
+
+      </figure>
+
+
+      <figure class="game">
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg"
+          alt="Rainbow Six Siege"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          RAINBOW SIX SIEGE
+        </figcaption>
+
+      </figure>
+
+
+      <figure class="game">
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg"
+          alt="GTA V"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          GRAND THEFT AUTO V
+        </figcaption>
+
+      </figure>
+
+
+      <figure class="game">
+
+        <img
+          src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg"
+          alt="Elden Ring"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+
+        <figcaption>
+          ELDEN RING
+        </figcaption>
+
+      </figure>
+
     </div>
+
   </section>
 
+
   <section id="how">
+
     <div class="sec-head">
+
       <div>
+
         <h2>How the Purchase Works</h2>
-        <p>Three simple steps. No payment information is requested on this page.</p>
+
+        <p>
+          Three simple steps. No payment information is requested on this page.
+        </p>
+
       </div>
+
     </div>
 
+
     <div class="info">
+
       <div class="info-card">
-        <span class="info-num">STEP 01</span>
-        <h3>Choose Your Item</h3>
+
+        <span class="info-num">
+          STEP 01
+        </span>
+
+        <h3>
+          Choose Your Item
+        </h3>
+
         <p>
           Filter the listings by rarity or type, then review the wear value on
           the Float bar before making your decision.
         </p>
+
       </div>
 
+
       <div class="info-card">
-        <span class="info-num">STEP 02</span>
-        <h3>Click Buy</h3>
+
+        <span class="info-num">
+          STEP 02
+        </span>
+
+        <h3>
+          Click Buy
+        </h3>
+
         <p>
           The Buy button opens an external link in a new tab. Links can be
           configured later in the page settings.
         </p>
+
       </div>
 
+
       <div class="info-card">
-        <span class="info-num">STEP 03</span>
-        <h3>Complete Payment There</h3>
+
+        <span class="info-num">
+          STEP 03
+        </span>
+
+        <h3>
+          Complete Payment There
+        </h3>
+
         <p>
           Payment and delivery are handled entirely on the external website.
           This page only displays the listings.
         </p>
+
       </div>
+
     </div>
+
   </section>
 
 </main>
 
+
 <footer>
+
   <div class="wrap foot-in">
+
     <p>
-      <strong style="color:var(--ink-2)">Weapon Vault</strong> —
+
+      <strong style="color:var(--ink-2)">
+        Weapon Vault
+      </strong>
+
+      —
+
       Demo showcase page. Images are sourced from the Steam Content Delivery
       Network and remain the property of their respective owners.
       This website is not affiliated with or endorsed by Valve or Steam.
       Prices and figures shown are illustrative.
+
     </p>
 
+
     <div class="foot-links">
-      <a href="#vault">Vault</a>
-      <a href="#games">Games</a>
-      <a href="#how">Purchase</a>
+
+      <a href="#vault">
+        Vault
+      </a>
+
+      <a href="#games">
+        Games
+      </a>
+
+      <a href="#how">
+        Purchase
+      </a>
+
     </div>
+
   </div>
+
 </footer>
 
-<div id="toast" role="status" aria-live="polite">
-  <b>—</b>
-  <span id="toastMsg">—</span>
+
+<!-- =========================
+     PASSWORD MODAL
+     ========================= -->
+
+<div
+  id="passwordModal"
+  class="modal"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="passwordModalTitle">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <span>
+        PURCHASE ACCESS
+      </span>
+
+      <button
+        class="modal-close"
+        type="button"
+        aria-label="Close"
+        onclick="closePasswordModal()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <h3 id="passwordModalTitle">
+        Enter password
+      </h3>
+
+      <p>
+        Enter the password to continue to the external checkout page.
+      </p>
+
+
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Enter password..."
+        autocomplete="off"
+        spellcheck="false">
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn btn-ghost"
+          type="button"
+          onclick="closePasswordModal()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          class="buy"
+          type="button"
+          onclick="submitPassword()">
+
+          Continue
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
+
+<!-- =========================
+     TOAST
+     ========================= -->
+
+<div
+  id="toast"
+  role="status"
+  aria-live="polite">
+
+  <b>—</b>
+
+  <span id="toastMsg">
+    —
+  </span>
+
+</div>
+
+
 <script>
+
 const ENCRYPTED_LINKS = {
+
   "ak-neon-rider": {
     salt: "TbPHQwBZ45cbgCPMS1fCYw==",
     iv: "064DDkOJYx1/mVNT",
@@ -1194,369 +1866,1185 @@ const ENCRYPTED_LINKS = {
     iv: "fOt0RVtuMQTL7IEF",
     data: "f2Xg4ohS0a2XROx7t4RrKuSbl57RQexRM0czaJ/IH/2V5H1AZFBFG/lbz8B9cdgSn2UiW7WFHmLG65X4O3vMuAqaQUWbIDBuZUgfUESyU0C5ItlhbiESga4oDOscG3+U8DITupbUPoy9m8rJ8mWgvyKCoCECOogGhyxh2iQYdA0kaY3I9Xs24JxO7bCYzmyUVgApjg=="
   }
+
 };
 
-const CDN = "https://community.cloudflare.steamstatic.com/economy/image/";
+
+const CDN =
+  "https://community.cloudflare.steamstatic.com/economy/image/";
+
 
 const RARE = {
-  mil: { label: "Mil-Spec", color: "#4b69ff" },
-  res: { label: "Restricted", color: "#8847ff" },
-  cls: { label: "Classified", color: "#d32ce6" },
-  cov: { label: "Covert", color: "#eb4b4b" }
+
+  mil: {
+    label:"Mil-Spec",
+    color:"#4b69ff"
+  },
+
+  res: {
+    label:"Restricted",
+    color:"#8847ff"
+  },
+
+  cls: {
+    label:"Classified",
+    color:"#d32ce6"
+  },
+
+  cov: {
+    label:"Covert",
+    color:"#eb4b4b"
+  }
+
 };
+
 
 const WEAR = {
-  fn: "Factory New",
-  mw: "Minimal Wear",
-  ft: "Field-Tested",
-  ww: "Well-Worn",
-  bs: "Battle-Scarred"
+
+  fn:"Factory New",
+  mw:"Minimal Wear",
+  ft:"Field-Tested",
+  ww:"Well-Worn",
+  bs:"Battle-Scarred"
+
 };
 
+
 const WEAPONS = [
-  {id:"ak-neon-rider",w:"AK-47",s:"Neon Rider",type:"rifle",rare:"cov",wear:"ft",float:.24,price:60.65,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6poL_6sHG6UxPxJveRtRjy-2x9_5GiBmYn4JHiVa1NyXMMkRuNe5ka5k9eyM-q2sQHc2NpCmyWvin5XrnE89iGyCXM"},
-  {id:"m4a1s-hyper",w:"M4A1-S",s:"Hyper Beast",type:"rifle",rare:"cov",wear:"ft",float:.29,price:172.50,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGMWrEwL9JuPh5SjuMlxgmoCm6l4r9KD7KcA50WcR0R7NctBm_k9fgN7nn4FGMitpCxH-vjikc6Cs4t-5TVaMgr_bJz1aWEz9VGgc"},
-  {id:"awp-hyper",w:"AWP",s:"Hyper Beast",type:"sniper",rare:"cov",wear:"ww",float:.41,price:82.18,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_jdk7uW-V6x0MPWBMWWVwP1ij-xsSyCmmFMj62Tcwt-gJC_BbwNyDZokQu8I4BK6wdazMuq35AbW3YIWmy_4h3tO8G81tKCz9TDP"},
-  {id:"deagle-code-red",w:"Desert Eagle",s:"Code Red",type:"pistol",rare:"cov",wear:"ft",float:.26,price:38.90,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6OGRbKFsJ_yWMWaXxvxzo_JmXRa-kBkupjDLzd2qIH_DPQcpA8YjFuQP50a7moKyMuK35QyK3t0WnC75iC5B53w-5PFCD_THYZfD3g"},
-  {id:"usps-kill",w:"USP-S",s:"Kill Confirmed",type:"pistol",rare:"cov",wear:"ww",float:.42,price:75.81,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsG3SA_uV_vO1WTCa9kxQ1vjiBpYL8JSLSMxghCMEjEeNe5hHpw9zhYuOz5VfcitpBmyqt3X9O6itrsesFUfYmrKzTkUifZqPQtnZK"},
-  {id:"galil-chatterbox",w:"Galil AR",s:"Chatterbox",type:"rifle",rare:"cov",wear:"bs",float:.68,price:200.00,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PG7V6NsLPmfMWaS0-9lue5ncCG2lAs-_T_VyN2ucXnFOwNxDMNxRrRetxLuw9zkYbnmsgXejYITzST7i35P6Ch1o7FVupaolwI"},
-  {id:"mac10-neon",w:"MAC-10",s:"Neon Rider",type:"smg",rare:"cov",wear:"mw",float:.11,price:179.42,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2jaac8cM-dC2ie0-dytfNWQyC0nQlp5DzTntmgdC7COABxX5NxQrUOtUS5w4LgMu6zsVCK2IJCmyisjitM6DErvbicsEA0SQ"},
-  {id:"deagle-kumicho",w:"Desert Eagle",s:"Kumicho Dragon",type:"pistol",rare:"cov",wear:"ft",float:.31,price:23.20,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHC2aXzetJu_RkRiq7mhk1sjqKlLD0JC_OK1s-DsclRrYPt0SxltXlMLu04QyNjN9Hyyv2iSJB5ntitb4AAPIi-K3ShxaBb-NmvxQSPw"},
-  {id:"ump-primal",w:"UMP-45",s:"Primal Saber",type:"smg",rare:"cov",wear:"mw",float:.13,price:18.58,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-DHG6dwOJlseNsXRa_nBovp3PRn478JHmePQ8hDcF2Q7YDtxXrk92zYbyw7gXYjIhEyCn_3Hsbui44_a9cBklqRdMs"},
-  {id:"mp9-starlight",w:"MP9",s:"Starlight Protector",type:"smg",rare:"cov",wear:"ft",float:.22,price:44.10,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk4uL3V7d5IeKfB2CY1dF7teVgWiT9wU0htTjWnI2qcHvEZgQlW5VyROAD50W6lYDnN-zi5QyM2YtGzir43zQJsHh8IziyOQ"},
-  {id:"ak-head-shot",w:"AK-47",s:"Head Shot",type:"rifle",rare:"cov",wear:"mw",float:.09,price:68.82,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6xoIfSsHW-f1dF-v-1mcCW6khUz_TzRnNigd3-SOg4lAsF1QOQN4xS4wdHnMu-0swaMjIxExSSoiyof6ih1o7FVGHIdVhw"},
-  {id:"ssg-bloodshot",w:"SSG 08",s:"Bloodshot",type:"sniper",rare:"cls",wear:"ft",float:.27,price:23.50,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-HB2Sbzetkj-xsSyCmmFMk6mSBzYqudynGawYkDZsiFONbthbpkd3vNe_i7waK2I0QmCWs3y8a8G81tMKgh-SW"},
-  {id:"nova-hyper",w:"Nova",s:"Hyper Beast",type:"shotgun",rare:"cls",wear:"bs",float:.71,price:6.44,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiFO0PyhfqVSKOmDC3WSxO9lpN5hSiiljFMi5mnVm9ugcS2SbFAiX8QmTOFetRWxm9buN-yz4wyPj4lCmCz7235P8G81tNlihlzF"},
-  {id:"famas-roll-cage",w:"FAMAS",s:"Roll Cage",type:"rifle",rare:"cls",wear:"ww",float:.44,price:9.87,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF7teVgWiT9wRsk4WiHy4qgdHmSagQgCJtyFOYDskXtlIDmYbjg7gyNi4pAxH-ojTQJsHirr78Opg"},
-  {id:"m4a1s-strato",w:"M4A1-S",s:"Stratosphere",type:"rifle",rare:"cls",wear:"ft",float:.25,price:4.97,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGC1iD1fx3pO56XyG2hxgYvjiBk5r0b3_CPAAhDptxReEO5kPpkoDhMO2wslONgoMTniiq2y9J531isedUUfE7uvqA3Nda9XE"},
-  {id:"ak-ice-coaled",w:"AK-47",s:"Ice Coaled",type:"rifle",rare:"cls",wear:"bs",float:.62,price:4.96,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSI_-UGm-Zz-llj-lsTj-q20twtjuAy9yoIHKValdyCZIhTeVb4RLrk9zmYePjtVaM3o9NmyT73X9XrnE8zYKPTW4"},
-  {id:"five7-hyper",w:"Five-SeveN",s:"Hyper Beast",type:"pistol",rare:"res",wear:"ft",float:.28,price:243.15,st:true,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRa7FSJvmFC3SV1-t4j-lwXyyhlxgmoCm6l4r9KD7KcFcnA8R0FrVY4UO5lobgY-jjsw2K2Y1CnHqvhisf7i5ituZTA6B0_fLJz1aWbhFdbBQ"},
-  {id:"glock-water",w:"Glock-18",s:"Water Elemental",type:"pistol",rare:"res",wear:"mw",float:.12,price:27.17,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK72fB3aFxP11te99cCW6khUz_TjVyompc3-QOFR2DJQkFOMJtBbqk9LlY-7n5QLZjtkTxCWqhixPv311o7FVIf8eASQ"},
-  {id:"usps-jawbreaker",w:"USP-S",s:"Jawbreaker",type:"pistol",rare:"res",wear:"ww",float:.43,price:4.23,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5kSi26gBBp42mDz939J32VZwFyA8FxReBesRO8wdK0ZrzitQ2K2oMTzCWviCMb5jErvbgcxKeE5g"},
-  {id:"sawedoff-analog",w:"Sawed-Off",s:"Analog Input",type:"shotgun",rare:"res",wear:"fn",float:.04,price:1.56,st:false,icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi"}
+
+  {
+    id:"ak-neon-rider",
+    w:"AK-47",
+    s:"Neon Rider",
+    type:"rifle",
+    rare:"cov",
+    wear:"ft",
+    float:.24,
+    price:60.65,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6poL_6sHG6UxPxJveRtRjy-2x9_5GiBmYn4JHiVa1NyXMMkRuNe5ka5k9eyM-q2sQHc2NpCmyWvin5XrnE89iGyCXM"
+  },
+
+  {
+    id:"m4a1s-hyper",
+    w:"M4A1-S",
+    s:"Hyper Beast",
+    type:"rifle",
+    rare:"cov",
+    wear:"ft",
+    float:.29,
+    price:172.50,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGMWrEwL9JuPh5SjuMlxgmoCm6l4r9KD7KcA50WcR0R7NctBm_k9fgN7nn4FGMitpCxH-vjikc6Cs4t-5TVaMgr_bJz1aWEz9VGgc"
+  },
+
+  {
+    id:"awp-hyper",
+    w:"AWP",
+    s:"Hyper Beast",
+    type:"sniper",
+    rare:"cov",
+    wear:"ww",
+    float:.41,
+    price:82.18,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_jdk7uW-V6x0MPWBMWWVwP1ij-xsSyCmmFMj62Tcwt-gJC_BbwNyDZokQu8I4BK6wdazMuq35AbW3YIWmy_4h3tO8G81tKCz9TDP"
+  },
+
+  {
+    id:"deagle-code-red",
+    w:"Desert Eagle",
+    s:"Code Red",
+    type:"pistol",
+    rare:"cov",
+    wear:"ft",
+    float:.26,
+    price:38.90,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6OGRbKFsJ_yWMWaXxvxzo_JmXRa-kBkupjDLzd2qIH_DPQcpA8YjFuQP50a7moKyMuK35QyK3t0WnC75iC5B53w-5PFCD_THYZfD3g"
+  },
+
+  {
+    id:"usps-kill",
+    w:"USP-S",
+    s:"Kill Confirmed",
+    type:"pistol",
+    rare:"cov",
+    wear:"ww",
+    float:.42,
+    price:75.81,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsG3SA_uV_vO1WTCa9kxQ1vjiBpYL8JSLSMxghCMEjEeNe5hHpw9zhYuOz5VfcitpBmyqt3X9O6itrsesFUfYmrKzTkUifZqPQtnZK"
+  },
+
+  {
+    id:"galil-chatterbox",
+    w:"Galil AR",
+    s:"Chatterbox",
+    type:"rifle",
+    rare:"cov",
+    wear:"bs",
+    float:.68,
+    price:200.00,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PG7V6NsLPmfMWaS0-9lue5ncCG2lAs-_T_VyN2ucXnFOwNxDMNxRrRetxLuw9zkYbnmsgXejYITzST7i35P6Ch1o7FVupaolwI"
+  },
+
+  {
+    id:"mac10-neon",
+    w:"MAC-10",
+    s:"Neon Rider",
+    type:"smg",
+    rare:"cov",
+    wear:"mw",
+    float:.11,
+    price:179.42,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2jaac8cM-dC2ie0-dytfNWQyC0nQlp5DzTntmgdC7COABxX5NxQrUOtUS5w4LgMu6zsVCK2IJCmyisjitM6DErvbicsEA0SQ"
+  },
+
+  {
+    id:"deagle-kumicho",
+    w:"Desert Eagle",
+    s:"Kumicho Dragon",
+    type:"pistol",
+    rare:"cov",
+    wear:"ft",
+    float:.31,
+    price:23.20,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHC2aXzetJu_RkRiq7mhk1sjqKlLD0JC_OK1s-DsclRrYPt0SxltXlMLu04QyNjN9Hyyv2iSJB5ntitb4AAPIi-K3ShxaBb-NmvxQSPw"
+  },
+
+  {
+    id:"ump-primal",
+    w:"UMP-45",
+    s:"Primal Saber",
+    type:"smg",
+    rare:"cov",
+    wear:"mw",
+    float:.13,
+    price:18.58,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-DHG6dwOJlseNsXRa_nBovp3PRn478JHmePQ8hDcF2Q7YDtxXrk92zYbyw7gXYjIhEyCn_3Hsbui44_a9cBklqRdMs"
+  },
+
+  {
+    id:"mp9-starlight",
+    w:"MP9",
+    s:"Starlight Protector",
+    type:"smg",
+    rare:"cov",
+    wear:"ft",
+    float:.22,
+    price:44.10,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk4uL3V7d5IeKfB2CY1dF7teVgWiT9wU0htTjWnI2qcHvEZgQlW5VyROAD50W6lYDnN-zi5QyM2YtGzir43zQJsHh8IziyOQ"
+  },
+
+  {
+    id:"ak-head-shot",
+    w:"AK-47",
+    s:"Head Shot",
+    type:"rifle",
+    rare:"cov",
+    wear:"mw",
+    float:.09,
+    price:68.82,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6xoIfSsHW-f1dF-v-1mcCW6khUz_TzRnNigd3-SOg4lAsF1QOQN4xS4wdHnMu-0swaMjIxExSSoiyof6ih1o7FVGHIdVhw"
+  },
+
+  {
+    id:"ssg-bloodshot",
+    w:"SSG 08",
+    s:"Bloodshot",
+    type:"sniper",
+    rare:"cls",
+    wear:"ft",
+    float:.27,
+    price:23.50,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-HB2Sbzetkj-xsSyCmmFMk6mSBzYqudynGawYkDZsiFONbthbpkd3vNe_i7waK2I0QmCWs3y8a8G81tMKgh-SW"
+  },
+
+  {
+    id:"nova-hyper",
+    w:"Nova",
+    s:"Hyper Beast",
+    type:"shotgun",
+    rare:"cls",
+    wear:"bs",
+    float:.71,
+    price:6.44,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiFO0PyhfqVSKOmDC3WSxO9lpN5hSiiljFMi5mnVm9ugcS2SbFAiX8QmTOFetRWxm9buN-yz4wyPj4lCmCz7235P8G81tNlihlzF"
+  },
+
+  {
+    id:"famas-roll-cage",
+    w:"FAMAS",
+    s:"Roll Cage",
+    type:"rifle",
+    rare:"cls",
+    wear:"ww",
+    float:.44,
+    price:9.87,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF7teVgWiT9wRsk4WiHy4qgdHmSagQgCJtyFOYDskXtlIDmYbjg7gyNi4pAxH-ojTQJsHirr78Opg"
+  },
+
+  {
+    id:"m4a1s-strato",
+    w:"M4A1-S",
+    s:"Stratosphere",
+    type:"rifle",
+    rare:"cls",
+    wear:"ft",
+    float:.25,
+    price:4.97,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGC1iD1fx3pO56XyG2hxgYvjiBk5r0b3_CPAAhDptxReEO5kPpkoDhMO2wslONgoMTniiq2y9J531isedUUfE7uvqA3Nda9XE"
+  },
+
+  {
+    id:"ak-ice-coaled",
+    w:"AK-47",
+    s:"Ice Coaled",
+    type:"rifle",
+    rare:"cls",
+    wear:"bs",
+    float:.62,
+    price:4.96,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSI_-UGm-Zz-llj-lsTj-q20twtjuAy9yoIHKValdyCZIhTeVb4RLrk9zmYePjtVaM3o9NmyT73X9XrnE8zYKPTW4"
+  },
+
+  {
+    id:"five7-hyper",
+    w:"Five-SeveN",
+    s:"Hyper Beast",
+    type:"pistol",
+    rare:"res",
+    wear:"ft",
+    float:.28,
+    price:243.15,
+    st:true,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRa7FSJvmFC3SV1-t4j-lwXyyhlxgmoCm6l4r9KD7KcFcnA8R0FrVY4UO5lobgY-jjsw2K2Y1CnHqvhisf7i5ituZTA6B0_fLJz1aWbhFdbBQ"
+  },
+
+  {
+    id:"glock-water",
+    w:"Glock-18",
+    s:"Water Elemental",
+    type:"pistol",
+    rare:"res",
+    wear:"mw",
+    float:.12,
+    price:27.17,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK72fB3aFxP11te99cCW6khUz_TjVyompc3-QOFR2DJQkFOMJtBbqk9LlY-7n5QLZjtkTxCWqhixPv311o7FVIf8eASQ"
+  },
+
+  {
+    id:"usps-jawbreaker",
+    w:"USP-S",
+    s:"Jawbreaker",
+    type:"pistol",
+    rare:"res",
+    wear:"ww",
+    float:.43,
+    price:4.23,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5kSi26gBBp42mDz939J32VZwFyA8FxReBesRO8wdK0ZrzitQ2K2oMTzCWviCMb5jErvbgcxKeE5g"
+  },
+
+  {
+    id:"sawedoff-analog",
+    w:"Sawed-Off",
+    s:"Analog Input",
+    type:"shotgun",
+    rare:"res",
+    wear:"fn",
+    float:.04,
+    price:1.56,
+    st:false,
+    icon:"i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi"
+  }
+
 ];
 
-const grid = document.getElementById("grid");
-const countE = document.getElementById("count");
-const qInput = document.getElementById("q");
+
+const grid =
+  document.getElementById("grid");
+
+const countE =
+  document.getElementById("count");
+
+const qInput =
+  document.getElementById("q");
+
 
 let fRare = "all";
 let fType = "all";
 let fQ = "";
+
 let featured = null;
+
 let toastTimer = null;
 
-const money = n => "$" + n.toFixed(2);
-const imgFor = w => CDN + w.icon + "/256fx128f";
+let pendingBuyId = null;
 
-function cardHTML(w) {
+
+const money =
+  n => "$" + n.toFixed(2);
+
+
+const imgFor =
+  w => CDN + w.icon + "/256fx128f";
+
+
+function cardHTML(w){
+
   const r = RARE[w.rare];
 
-  return `<article class="card" style="--rc:${r.color}" data-id="${w.id}">
-    <div class="rare-bar"></div>
+  return `
+    <article
+      class="card"
+      style="--rc:${r.color}"
+      data-id="${w.id}">
 
-    <div class="shot">
-      ${w.st ? '<span class="badge-st">StatTrak™</span>' : ''}
-      <img src="${imgFor(w)}"
-           alt="${w.w} | ${w.s}"
-           loading="lazy"
-           referrerpolicy="no-referrer"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;256&quot; height=&quot;128&quot;><rect width=&quot;256&quot; height=&quot;128&quot; fill=&quot;none&quot;/><text x=&quot;128&quot; y=&quot;72&quot; fill=&quot;#637486&quot; font-family=&quot;monospace&quot; font-size=&quot;11&quot; text-anchor=&quot;middle&quot;>IMAGE OFFLINE</text></svg>')">
-    </div>
+      <div class="rare-bar"></div>
 
-    <div class="body">
-      <div>
-        <div class="wname">${w.w.toUpperCase()}</div>
-        <div class="sname">${w.s}</div>
+      <div class="shot">
+
+        ${
+          w.st
+            ? '<span class="badge-st">StatTrak™</span>'
+            : ''
+        }
+
+        <img
+          src="${imgFor(w)}"
+          alt="${w.w} | ${w.s}"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+
+          onerror="
+            this.onerror=null;
+            this.src='data:image/svg+xml;utf8,' +
+            encodeURIComponent(
+              '<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;256&quot; height=&quot;128&quot;>' +
+              '<rect width=&quot;256&quot; height=&quot;128&quot; fill=&quot;none&quot;/>' +
+              '<text x=&quot;128&quot; y=&quot;72&quot; fill=&quot;#637486&quot; font-family=&quot;monospace&quot; font-size=&quot;11&quot; text-anchor=&quot;middle&quot;>IMAGE OFFLINE</text>' +
+              '</svg>'
+            )
+          ">
+
       </div>
 
-      <div class="meta">
-        <span class="pill rare">${r.label}</span>
-        <span class="pill">${WEAR[w.wear]}</span>
-      </div>
 
-      <div class="float">
-        <div class="float-top">
-          <span>FLOAT</span>
-          <span>${w.float.toFixed(3)}</span>
+      <div class="body">
+
+        <div>
+
+          <div class="wname">
+            ${w.w.toUpperCase()}
+          </div>
+
+          <div class="sname">
+            ${w.s}
+          </div>
+
         </div>
 
-        <div class="float-rail">
-          <i style="inset-inline-start:calc(${(w.float * 100).toFixed(1)}% - 1px)"></i>
+
+        <div class="meta">
+
+          <span class="pill rare">
+            ${r.label}
+          </span>
+
+          <span class="pill">
+            ${WEAR[w.wear]}
+          </span>
+
         </div>
+
+
+        <div class="float">
+
+          <div class="float-top">
+
+            <span>
+              FLOAT
+            </span>
+
+            <span>
+              ${w.float.toFixed(3)}
+            </span>
+
+          </div>
+
+
+          <div class="float-rail">
+
+            <i
+              style="
+                inset-inline-start:
+                calc(${(w.float * 100).toFixed(1)}% - 1px)
+              ">
+            </i>
+
+          </div>
+
+        </div>
+
+
+        <div class="buyrow">
+
+          <div class="price">
+
+            ${money(w.price)}
+
+            <small>
+              Fees included
+            </small>
+
+          </div>
+
+
+          <button
+            class="buy"
+            type="button"
+            data-buy="${w.id}">
+
+            Buy
+
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4">
+
+              <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+
+            </svg>
+
+          </button>
+
+        </div>
+
       </div>
 
-      <div class="buyrow">
-        <div class="price">
-          ${money(w.price)}
-          <small>Fees included</small>
-        </div>
-
-        <button class="buy" type="button" data-buy="${w.id}">
-          Buy
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </article>`;
+    </article>
+  `;
 }
 
-function render() {
-  const list = WEAPONS.filter(w =>
-    (fRare === "all" || w.rare === fRare) &&
-    (fType === "all" || w.type === fType) &&
-    (fQ === "" || (w.w + " " + w.s).toLowerCase().includes(fQ))
-  );
 
-  grid.innerHTML = list.length
-    ? list.map(cardHTML).join("")
-    : '<p class="empty">No matching results — try another filter.</p>';
+function render(){
+
+  const list =
+    WEAPONS.filter(w =>
+      (fRare === "all" || w.rare === fRare) &&
+      (fType === "all" || w.type === fType) &&
+      (
+        fQ === "" ||
+        (w.w + " " + w.s)
+          .toLowerCase()
+          .includes(fQ)
+      )
+    );
+
+
+  grid.innerHTML =
+    list.length
+      ? list.map(cardHTML).join("")
+      : '<p class="empty">No matching results — try another filter.</p>';
+
 
   countE.textContent =
-    list.length + " / " + WEAPONS.length + " items shown";
+    list.length +
+    " / " +
+    WEAPONS.length +
+    " items shown";
 }
 
-function base64ToBytes(base64) {
-  const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
 
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
+function base64ToBytes(base64){
+
+  const binary =
+    atob(base64);
+
+  const bytes =
+    new Uint8Array(binary.length);
+
+
+  for(
+    let i = 0;
+    i < binary.length;
+    i++
+  ){
+
+    bytes[i] =
+      binary.charCodeAt(i);
+
   }
+
 
   return bytes;
 }
 
-async function deriveDecryptionKey(password, saltBase64) {
-  if (!window.crypto || !window.crypto.subtle) {
-    throw new Error("Web Crypto API is unavailable.");
+
+async function deriveDecryptionKey(
+  password,
+  saltBase64
+){
+
+  if(
+    !window.crypto ||
+    !window.crypto.subtle
+  ){
+
+    throw new Error(
+      "Web Crypto API is unavailable."
+    );
+
   }
 
-  const passwordKey = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(password),
-    "PBKDF2",
-    false,
-    ["deriveKey"]
-  );
+
+  const passwordKey =
+    await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(password),
+      "PBKDF2",
+      false,
+      ["deriveKey"]
+    );
+
 
   return crypto.subtle.deriveKey(
+
     {
-      name: "PBKDF2",
-      salt: base64ToBytes(saltBase64),
-      iterations: 310000,
-      hash: "SHA-256"
+      name:"PBKDF2",
+      salt:base64ToBytes(saltBase64),
+      iterations:310000,
+      hash:"SHA-256"
     },
+
     passwordKey,
+
     {
-      name: "AES-GCM",
-      length: 256
+      name:"AES-GCM",
+      length:256
     },
+
     false,
+
     ["decrypt"]
-  );
-}
 
-async function decryptURL(entry, password) {
-  const key = await deriveDecryptionKey(password, entry.salt);
-
-  const plaintext = await crypto.subtle.decrypt(
-    {
-      name: "AES-GCM",
-      iv: base64ToBytes(entry.iv)
-    },
-    key,
-    base64ToBytes(entry.data)
   );
 
-  return new TextDecoder().decode(plaintext);
 }
 
-async function openBuy(id) {
-  const entry = ENCRYPTED_LINKS[id];
 
-  if (!entry) {
+async function decryptURL(
+  entry,
+  password
+){
+
+  const key =
+    await deriveDecryptionKey(
+      password,
+      entry.salt
+    );
+
+
+  const plaintext =
+    await crypto.subtle.decrypt(
+
+      {
+        name:"AES-GCM",
+        iv:base64ToBytes(entry.iv)
+      },
+
+      key,
+
+      base64ToBytes(entry.data)
+
+    );
+
+
+  return new TextDecoder()
+    .decode(plaintext);
+}
+
+
+/* =========================
+   OPEN PASSWORD MODAL
+   ========================= */
+
+function openBuy(id){
+
+  const entry =
+    ENCRYPTED_LINKS[id];
+
+
+  if(!entry){
+
     toast(
       "Purchase link is not configured for this item.",
       "LINK PENDING"
     );
+
     return;
   }
 
-  const password = prompt("Enter password:");
 
-  if (password === null) {
+  pendingBuyId = id;
+
+
+  const modal =
+    document.getElementById(
+      "passwordModal"
+    );
+
+
+  const input =
+    document.getElementById(
+      "passwordInput"
+    );
+
+
+  input.value = "";
+
+
+  modal.classList.add("on");
+
+  modal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+
+  setTimeout(() => {
+    input.focus();
+  },50);
+
+}
+
+
+/* =========================
+   CLOSE PASSWORD MODAL
+   ========================= */
+
+function closePasswordModal(){
+
+  const modal =
+    document.getElementById(
+      "passwordModal"
+    );
+
+
+  modal.classList.remove("on");
+
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  pendingBuyId = null;
+
+}
+
+
+/* =========================
+   SUBMIT PASSWORD
+   ========================= */
+
+async function submitPassword(){
+
+  if(!pendingBuyId){
     return;
   }
 
-  if (!password) {
+
+  const passwordInput =
+    document.getElementById(
+      "passwordInput"
+    );
+
+
+  const password =
+    passwordInput.value;
+
+
+  if(!password){
+
     toast(
       "Password cannot be empty.",
       "ACCESS DENIED"
     );
+
+    passwordInput.focus();
+
     return;
   }
 
-  try {
-    const url = await decryptURL(entry, password);
 
-    if (!/^https?:\/\//i.test(url)) {
-      throw new Error("Invalid decrypted URL.");
+  const id =
+    pendingBuyId;
+
+
+  const entry =
+    ENCRYPTED_LINKS[id];
+
+
+  try{
+
+    const url =
+      await decryptURL(
+        entry,
+        password
+      );
+
+
+    if(
+      !/^https?:\/\//i.test(url)
+    ){
+
+      throw new Error(
+        "Invalid decrypted URL."
+      );
+
     }
 
-    window.location.href = url;
 
-  } catch (error) {
-    console.error("Decryption error:", error);
+    closePasswordModal();
 
-    toast(
-      "Incorrect password or invalid encrypted data.",
-      "ACCESS DENIED"
-    );
-    return;
-  }
 
-  try {
-    const url = await decryptURL(entry, password);
+    const opened =
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
 
-    if (!/^https?:\/\//i.test(url)) {
-      throw new Error("Invalid decrypted URL.");
-    }
 
-    const opened = window.open(
-      url,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    if(!opened){
 
-    if (!opened) {
       toast(
         "The browser blocked the new tab. Allow pop-ups for this page.",
         "POPUP BLOCKED"
       );
+
     }
 
-  } catch (error) {
-    console.error("Decryption error:", error);
+  }
+  catch(error){
+
+    console.error(
+      "Decryption error:",
+      error
+    );
+
 
     toast(
       "Incorrect password or invalid encrypted data.",
       "ACCESS DENIED"
     );
+
   }
+
 }
 
-document.addEventListener("click", event => {
-  const buyButton = event.target.closest("[data-buy]");
 
-  if (!buyButton) {
-    return;
+/* =========================
+   BUY BUTTON EVENT
+   ========================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const buyButton =
+      event.target.closest(
+        "[data-buy]"
+      );
+
+
+    if(!buyButton){
+      return;
+    }
+
+
+    openBuy(
+      buyButton.dataset.buy
+    );
+
   }
+);
 
-  openBuy(buyButton.dataset.buy);
-});
 
-qInput.addEventListener("input", () => {
-  fQ = qInput.value.trim().toLowerCase();
-  render();
-});
+/* =========================
+   SEARCH
+   ========================= */
 
-function setFeatured(w) {
+qInput.addEventListener(
+  "input",
+  () => {
+
+    fQ =
+      qInput.value
+        .trim()
+        .toLowerCase();
+
+    render();
+
+  }
+);
+
+
+/* =========================
+   FILTERS
+   ========================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const rareButton =
+      event.target.closest(
+        "[data-rare]"
+      );
+
+
+    if(rareButton){
+
+      fRare =
+        rareButton.dataset.rare;
+
+
+      document
+        .querySelectorAll("[data-rare]")
+        .forEach(button => {
+
+          button.setAttribute(
+            "aria-pressed",
+            String(
+              button === rareButton
+            )
+          );
+
+        });
+
+
+      render();
+
+      return;
+    }
+
+
+    const typeButton =
+      event.target.closest(
+        "[data-type]"
+      );
+
+
+    if(typeButton){
+
+      fType =
+        typeButton.dataset.type;
+
+
+      document
+        .querySelectorAll("[data-type]")
+        .forEach(button => {
+
+          button.setAttribute(
+            "aria-pressed",
+            String(
+              button === typeButton
+            )
+          );
+
+        });
+
+
+      render();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   FEATURED ITEM
+   ========================= */
+
+function setFeatured(w){
+
   featured = w;
 
-  const image = document.getElementById("fImg");
 
-  image.src = CDN + w.icon + "/512fx256f";
+  const image =
+    document.getElementById(
+      "fImg"
+    );
 
-  image.onerror = function() {
-    this.onerror = null;
 
-    this.src =
-      "data:image/svg+xml;utf8," +
-      encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256">' +
-        '<rect width="512" height="256" fill="none"/>' +
-        '<text x="256" y="140" fill="#637486" font-family="monospace" font-size="14" text-anchor="middle">IMAGE OFFLINE</text>' +
-        '</svg>'
-      );
-  };
+  image.src =
+    CDN +
+    w.icon +
+    "/512fx256f";
 
-  document.getElementById("fName").textContent =
-    w.w + " | " + w.s;
 
-  document.getElementById("fSub").textContent =
+  image.onerror =
+    function(){
+
+      this.onerror = null;
+
+
+      this.src =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(
+
+          '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256">' +
+
+          '<rect width="512" height="256" fill="none"/>' +
+
+          '<text x="256" y="140" fill="#637486" font-family="monospace" font-size="14" text-anchor="middle">IMAGE OFFLINE</text>' +
+
+          '</svg>'
+
+        );
+
+    };
+
+
+  document.getElementById(
+    "fName"
+  ).textContent =
+    w.w +
+    " | " +
+    w.s;
+
+
+  document.getElementById(
+    "fSub"
+  ).textContent =
     RARE[w.rare].label +
     " · " +
     WEAR[w.wear] +
     " · Float " +
     w.float.toFixed(3);
 
-  document.getElementById("fPrice").textContent =
+
+  document.getElementById(
+    "fPrice"
+  ).textContent =
     money(w.price);
 
-  document.getElementById("fTag").textContent =
-    "FEATURED / " + w.w.toUpperCase();
 
-  document.getElementById("fRare").textContent =
-    "■ " + RARE[w.rare].label;
+  document.getElementById(
+    "fTag"
+  ).textContent =
+    "FEATURED / " +
+    w.w.toUpperCase();
+
+
+  document.getElementById(
+    "fRare"
+  ).textContent =
+    "■ " +
+    RARE[w.rare].label;
+
 
   document
     .getElementById("featured")
     .style
-    .setProperty("--rc", RARE[w.rare].color);
+    .setProperty(
+      "--rc",
+      RARE[w.rare].color
+    );
+
 }
+
+
+/* =========================
+   FEATURED BUY
+   ========================= */
 
 document
   .getElementById("fBuy")
-  .addEventListener("click", () => {
-    if (!featured) {
-      return;
+  .addEventListener(
+    "click",
+    () => {
+
+      if(!featured){
+        return;
+      }
+
+
+      openBuy(
+        featured.id
+      );
+
     }
+  );
 
-    openBuy(featured.id);
-  });
 
-function rollRandom() {
+/* =========================
+   RANDOM CASE
+   ========================= */
+
+function rollRandom(){
+
   const w =
-    WEAPONS[Math.floor(Math.random() * WEAPONS.length)];
+    WEAPONS[
+      Math.floor(
+        Math.random() *
+        WEAPONS.length
+      )
+    ];
+
 
   setFeatured(w);
+
 
   toast(
     `You got: ${w.w} | ${w.s} — ${RARE[w.rare].label}`,
     "CASE OPENED"
   );
 
+
   document
     .getElementById("featured")
     .scrollIntoView({
-      block: "center"
+      block:"center"
     });
+
 }
 
-function toast(msg, tag) {
-  const t = document.getElementById("toast");
 
-  t.querySelector("b").textContent =
+/* =========================
+   TOAST
+   ========================= */
+
+function toast(
+  msg,
+  tag
+){
+
+  const t =
+    document.getElementById(
+      "toast"
+    );
+
+
+  t.querySelector("b")
+    .textContent =
     tag || "Weapon Vault";
 
-  document.getElementById("toastMsg").textContent =
+
+  document.getElementById(
+    "toastMsg"
+  ).textContent =
     msg;
+
 
   t.classList.add("on");
 
-  clearTimeout(toastTimer);
 
-  toastTimer = setTimeout(() => {
-    t.classList.remove("on");
-  }, 4200);
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(
+      () => {
+
+        t.classList.remove(
+          "on"
+        );
+
+      },
+      4200
+    );
+
 }
 
-setFeatured(WEAPONS[0]);
+
+/* =========================
+   MODAL EVENTS
+   ========================= */
+
+document
+  .getElementById("passwordInput")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+        submitPassword();
+
+      }
+
+
+      if(
+        event.key === "Escape"
+      ){
+
+        event.preventDefault();
+
+        closePasswordModal();
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById("passwordModal")
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target.id ===
+        "passwordModal"
+      ){
+
+        closePasswordModal();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   INITIALIZE
+   ========================= */
+
+setFeatured(
+  WEAPONS[0]
+);
+
 render();
+
 </script>
 
 </body>
-</html>
+  </html>
